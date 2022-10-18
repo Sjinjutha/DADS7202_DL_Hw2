@@ -1,8 +1,31 @@
 # DADS7202_Deep Learning_Hw02
 
 # INTRODUCTION
+การตรวจจับจำแนกวัตถุ (Object Detection)
 
 ## About Dataset
+ชุดข้อมูลที่สร้างขึ้นเองทั้งหมดประกอบด้วย Crystal, Nestle, Aquafina ทั้งหมด 1200 รูป โดยทำการแบ่งชุดข้อมูลออกเป็น train set 70% (840 รูป) validation set 20% (240 รูป) และ test set 10% (120 รูป)
+
+## Model 1: Faster R-CNN (two-stage model)
+
+### Initial model
+
+### Tuned model
+
+### Comparing between initial model and tuned model of Faster R-CNN
+
+## Model 2: RetinaNet (one-stage model)
+
+### Initial model
+
+### Tuned model
+
+### Comparing between initial model and tuned model of RetinaNet
+
+## Comparing between Faster R-CNN and RetinaNet
+
+## Reference
+[1] (2022) Data preprocessing from https://app.roboflow.com
 
 ## End Credit
 งานชิ้นนี้เป็นส่วนหนึ่งของวิชา DADS7202 Deep Learning หลักสูตรวิทยาศาสตร์มหาบัณฑิต คณะสถิติประยุกต์ สถาบันบัณฑิตพัฒนบริหารศาสตร์
