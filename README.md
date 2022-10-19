@@ -9,8 +9,12 @@
 ## Model 1: Faster R-CNN (two-stage model)
 
 ### Initial model
+จำนวนรอบของการ train = 5000
+batch size = 8
 
 ### Tuned model
+จำนวนรอบของการ train = 10000
+batch size = 8
 
 ### Comparing between initial model and tuned model of Faster R-CNN
 
