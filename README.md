@@ -196,7 +196,7 @@ print(f"Setup complete. Using torch {torch.__version__} ({torch.cuda.get_device_
 ```
 ![y1](https://user-images.githubusercontent.com/113499057/196791465-12eb4ec9-ae57-480b-b8ca-adceeca7833c.jpg)
 
-##### ตั้งค่า environment
+ตั้งค่า environment
 ```
 os.environ["DATASET_DIRECTORY"] = "/content/datasets"1
 ```
@@ -217,12 +217,14 @@ dataset = project.version(1).download("yolov5")
 ```
 ![y3](https://user-images.githubusercontent.com/113499057/196791483-74ddeb93-6805-43fc-952a-8af9e09295e1.jpg)
 
-Evaluate Custom YOLOv5 Detector Performance
+Evaluation แสดงประสิทธิภาพของ model
 ```
 %load_ext tensorboard
 %tensorboard --logdir runs
 ```
 ![y4](https://user-images.githubusercontent.com/113499057/196791486-57f784fc-da25-4348-87dc-5cccd6d9f8e7.jpg)
+
+จากกราฟจะเห็นได้ว่า ค่าสัดส่วน metrics/mAP มีค่าเพิ่มขึ้น ค่ายิ่งมากยิ่งแสดงถึงความแม่นยำ
 
 **Run Inference With Trained Weights**
 เอาข้อมูล pre-trained model มาทดสอบ
