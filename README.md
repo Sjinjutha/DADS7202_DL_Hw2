@@ -229,7 +229,8 @@ Evaluate Custom YOLOv5 Detector Performance
 ```
 !python detect.py --weights /content/yolov5/runs/train/exp2/weights/best.pt --img 416 --conf 0.1 --source /content/datasets/Brands-1/test/images
 ```
-่กเก่เกปเมใ้
+
+![y9](https://user-images.githubusercontent.com/113499057/196794863-971aa523-f62d-410b-8bd5-deb66ac36420.jpg)
 
 ทดลองนำ model มาใช้กับข้อมูลชุด test
 ```
