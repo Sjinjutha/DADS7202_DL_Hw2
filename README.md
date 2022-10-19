@@ -63,14 +63,20 @@ cp object_detection/packages/tf2/setup.py .
 ```
 !python object_detection/builders/model_builder_tf2_test.py
 ```
+![9](https://user-images.githubusercontent.com/113499057/196779898-a90f4c60-2141-4bb3-bc52-459ba4ecb395.jpg)
 ```
 cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 ```
+![10](https://user-images.githubusercontent.com/113499057/196779920-e5641a4c-f2e8-4fe1-8434-be95d9c1969c.jpg)
+
 โหลด pre-trained model จาก [Tensorflow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) และแตกไฟล์
 ```
 !wget http://download.tensorflow.org/models/object_detection/tf2/20200711/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz
 !tar -xvf faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz
 ```
+![11](https://user-images.githubusercontent.com/113499057/196779940-32ad199d-3347-4633-afa9-56fa1cf71d9d.jpg)
+![12](https://user-images.githubusercontent.com/113499057/196779955-b4f4f53f-6112-4b6e-963b-2a856088c166.jpg)
+
 **สร้าง train data** แปลงเป็น tfrecord file จะได้ไฟล์ออกออกมาเป็น train.record
 ```
 !python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/train -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/train.record
@@ -79,6 +85,8 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 ```
 !python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/test -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/test.record
 ```
+![13](https://user-images.githubusercontent.com/113499057/196779995-d3043950-e75a-4970-a7f7-3caffcdc0b9a.jpg)
+
 **แก้ไขในไฟล์ pipline.config ใน model ของเราเอง (ดึงเฉพาะส่วน code ที่เราต้องแก้ file path)**
 
 แนะนำให้ปรับขนาดมิติเล็กและใหญ่ที่สุดให้เท่ากับขนาดรูปภาพของเราที่ใช้ (416 * 416)
