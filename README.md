@@ -15,6 +15,8 @@
 from google.colab import drive
 drive.mount('/content/drive')
 ```
+![1](https://user-images.githubusercontent.com/113499057/196776792-ef0de654-cda7-4817-9f79-8ffd5ac54a05.jpg)
+
 Install tensorflow
 ```
 !pip install tensorflow-gpu
@@ -24,12 +26,16 @@ Import library และตรวจสอบเวอร์ชันของ t
 import tensorflow as tf
 print(tf.__version__)
 ```
+![3](https://user-images.githubusercontent.com/113499057/196776889-08b0d782-8da7-4adc-8ae4-ecac858076ea.jpg)
+
 Cloning TFOD 2.0 Github
 ตั้งค่า directory และ clone github เพื่อจะได้ object detection model ออกมา
 ```
 cd /content/drive/MyDrive
 !git clone https://github.com/tensorflow/models.git
 ```
+![5](https://user-images.githubusercontent.com/113499057/196776972-08ecd031-33dd-4e18-9152-84507b31becd.jpg)
+
 ตั้งค่า directory และติดตั้ง Protocal Buffet เพื่อสร้างท่อในการลำเลียงข้อมูลส่งจากอีกที่หนึ่งไปยังอีกที่หนึ่ง
 ```
 cd /content/drive/MyDrive/models/research
@@ -39,6 +45,8 @@ clone github เพื่อจะได้ติดตั้ง COCO API
 ```
 !git clone https://github.com/cocodataset/cocoapi.git
 ```
+![06](https://user-images.githubusercontent.com/113499057/196777068-921c6d20-ddb3-4d5e-886d-7b14d3162f9f.jpg)
+
 คำสั่ง make เพื่อสร้างและเก็บกลุ่มของโปรแกรมและไฟล์จากต้นทาง
 ```
 !make
