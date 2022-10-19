@@ -158,8 +158,18 @@ batch size: 4, num_steps: 10000, total_steps: 10000, warmup_steps: 1000
 - num_steps: 20000
 - total_steps: 20000 (num_steps = total_steps)
 - warmup_steps: 2000 (แนะนำให้ใช้จำนวน 10% ของจำนวนรอบทั้งหมด)
-ผลลัพธ์ของการ Run Model
+#### ผลลัพธ์ของการ Run Model
+Train Model
 
+![18](https://user-images.githubusercontent.com/113499057/196789197-6cc69c8f-1594-4649-a4be-fdf4b51bac9c.jpg)
+
+Evaluation แสดงประสิทธิภาพของ model
+
+![19](https://user-images.githubusercontent.com/113499057/196789205-f91017ad-e16f-4fda-90bd-a3bc4360d480.jpg)
+ใช้ Tensorboard แสดงกราฟค่า loss (ค่าคลาดเคลื่อนในการพยากรณ์)
+### เพิ่มรูปกราฟTensor
+
+![20](https://user-images.githubusercontent.com/113499057/196789208-85f177a2-64ef-4051-a67c-7ad05917c773.jpg)
 
 
 ### Comparing between initial model and tuned model of Faster R-CNN
