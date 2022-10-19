@@ -72,12 +72,23 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 ```
 !python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/test -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/test.record
 ```
+แนะนำให้ปรับให้เท่ากับขนาดรูปภาพของเราที่ใช้
+min_dimension: 416
+max_dimension: 416
+
+use_bfloat16: false  # แก้จาก true ให้เป็น false เพราะใช้ GPU ในการ run
+
+### แก้
+num_steps: 10000
+total_steps: 10000 (num_steps = total_steps)
+warmup_steps: 1000 (แนะนำให้ใช้จำนวน 10% ของจำนวนรอบทั้งหมด)
 ```
 !python model_main_tf2.py --model_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn --pipeline_config_path=/content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config
 ```
 ```
 !python model_main_tf2.py --model_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn --pipeline_config_path=/content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config --checkpoint_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn
 ```
+
 ```
 %load_ext tensorboard
 %tensorboard --logdir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn
@@ -96,6 +107,58 @@ batch size = 8
 batch size = 8
 
 ### Comparing between initial model and tuned model of Faster R-CNN
+
+### Yolo V5
+clone github เพื่อจะได้ติดตั้ง YOlo-V5
+```
+#clone YOLOv5 and 
+!git clone https://github.com/ultralytics/yolov5  # clone repo
+%cd yolov5
+%pip install -qr requirements.txt # install dependencies
+%pip install -q roboflow
+```
+
+```
+import torch
+import os
+from IPython.display import Image, clear_output  # to display images
+
+print(f"Setup complete. Using torch {torch.__version__} ({torch.cuda.get_device_properties(0).name if torch.cuda.is_available() else 'CPU'})")
+```
+##### ตั้งค่า environment
+```
+os.environ["DATASET_DIRECTORY"] = "/content/datasets"1
+```
+ติดตั้ง roboflow
+```
+!pip install roboflow
+
+from roboflow import Roboflow
+rf = Roboflow(api_key="5O37kFrhuKlGI2WuGhvK")
+project = rf.workspace("national-institute-of-development-administration-no8yz").project("brands-tcgnz")
+dataset = project.version(1).download("yolov5")
+```
+กำหนดขนาดของรูปภาพ(416),ขนาดของ batch(16),กำหนดจำนวนรอบ(150) แล้ว Train 
+```
+!python train.py --img 416 --batch 16 --epochs 150 --data {dataset.location}/data.yaml --weights yolov5s.pt --cache
+```
+## Run Inference With Trained Weights
+เอาข้อมูล pre-train มาทดสอบ
+```
+!python detect.py --weights /content/yolov5/runs/train/exp2/weights/best.pt --img 416 --conf 0.1 --source /content/datasets/Brands-1/test/images
+```
+
+##### display inference on ALL test images
+```
+import glob
+from IPython.display import Image, display
+```
+```
+for imageName in glob.glob('/content/yolov5/runs/detect/exp4/*.jpg'): #assuming JPG
+    display(Image(filename=imageName))
+    print("\n")
+```
+
 
 ## Model 2: RetinaNet (one-stage model)
 เทคนิค RatinaNet ทำการแบ่งชุดข้อมูลออกเป็น train set 70% (840 รูป) validation set 20% (240 รูป) และ test set 10% (120 รูป)
