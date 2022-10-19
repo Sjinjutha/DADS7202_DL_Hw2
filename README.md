@@ -142,6 +142,8 @@ Evaluation แสดงประสิทธิภาพของ model
 ![g2_1](https://user-images.githubusercontent.com/113499057/196784215-cb2c1676-bf88-4253-aeca-a4ad28b6b00e.jpg)
 ![g2_2](https://user-images.githubusercontent.com/113499057/196784235-a5ec3377-1313-403c-9c5f-de398eec4656.jpg)
 
+จากกราฟเป็นค่าความผิดพลาดจากการเทรน เมื่อเวลาผ่านไปความผิดพลาดยิ่งน้อยลง หากได้ทําการเทรนมากยิ่งขึ้นโปรแกรมจะมีความแม่นยํามากขึ้น (ค่าเข้าใกล้ 0)
+
 ทำการบันทึก model ออกมาเก็บไว้
 ```
 !python exporter_main_v2.py --input_type image_tensor --pipeline_config_path /content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config --trained_checkpoint_dir /content/drive/MyDrive/C_Dads7202/models/my_frcnn --output_directory /content/drive/MyDrive/C_Dads7202/exported_models/my_model
