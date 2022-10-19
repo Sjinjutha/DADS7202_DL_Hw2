@@ -146,6 +146,11 @@ Evaluation แสดงประสิทธิภาพของ model
 ```
 !python exporter_main_v2.py --input_type image_tensor --pipeline_config_path /content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config --trained_checkpoint_dir /content/drive/MyDrive/C_Dads7202/models/my_frcnn --output_directory /content/drive/MyDrive/C_Dads7202/exported_models/my_model
 ```
+![17](https://user-images.githubusercontent.com/113499057/196785662-f4aa093d-f408-4a27-bf6a-2c452c2933e2.jpg)
+
+ผลลัพธ์ของการ Run Model
+batch size: 4, num_steps: 10000, total_steps: 10000, warmup_steps: 1000
+![16](https://user-images.githubusercontent.com/113499057/196785683-8d1d8146-4c0c-43dd-9a25-76c2a882c69f.jpg)
 
 ### Tuned model
 ในการ run model ในครั้งนี้ใช้
@@ -153,6 +158,9 @@ Evaluation แสดงประสิทธิภาพของ model
 - num_steps: 20000
 - total_steps: 20000 (num_steps = total_steps)
 - warmup_steps: 2000 (แนะนำให้ใช้จำนวน 10% ของจำนวนรอบทั้งหมด)
+ผลลัพธ์ของการ Run Model
+
+
 
 ### Comparing between initial model and tuned model of Faster R-CNN
 #### Initial Model
