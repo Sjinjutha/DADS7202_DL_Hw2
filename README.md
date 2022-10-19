@@ -10,6 +10,35 @@
 เทคนิค Faster R-CNN นำข้อมูลผ่านเว็บไซต์ https://app.roboflow.com เพื่อตรวจสอบ อีกทั้งมีการปรับขนาดรูปภาพเป็น 416*416 แต่ไม่ได้มีการทำ Data Augmentation เนื่องจากชุดข้อมูลที่เราสร้างมีจำนวนมากและหลากหลายในเรื่องของมุมภาพ แสง การตัดขอบ การหมุน รวมอยู่ในชุดข้อมูล และทำการแบ่งชุดข้อมูลออกเป็น train set 90% (1080 รูป) และ test set 10% (120 รูป)
 
 ### Initial model
+เชื่อมต่อ google collab กับ google drive ของเรา
+```
+from google.colab import drive
+drive.mount('/content/drive')
+```
+Install tensorflow
+```
+!pip install tensorflow-gpu
+```
+Import library และตรวจสอบเวอร์ชันของ tensorflow
+```
+import tensorflow as tf
+print(tf.__version__)
+```
+Cloning TFOD 2.0 Github
+ตั้งค่า directory และ clone github เพื่อจะได้ object detection model ออกมา
+```
+cd /content/drive/MyDrive
+!git clone https://github.com/tensorflow/models.git
+```
+ตั้งค่า directory และติดตั้ง Protocal Buffet เพื่อสร้างท่อในการลำเลียงข้อมูลส่งจากอีกที่หนึ่งไปยังอีกที่หนึ่ง
+```
+cd /content/drive/MyDrive/models/research
+!protoc object_detection/protos/*.proto --python_out=.
+```
+clone github เพื่อจะได้ติดตั้ง COCO API
+```
+!git clone https://github.com/cocodataset/cocoapi.git
+```
 
 
 จำนวนรอบของการ train = 5000
