@@ -126,15 +126,22 @@ Train model
 ```
 !python model_main_tf2.py --model_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn --pipeline_config_path=/content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config
 ```
+![14](https://user-images.githubusercontent.com/113499057/196784178-89b1034b-883d-46fa-a1c5-7f07f17472da.jpg)
+
 Evaluation แสดงประสิทธิภาพของ model
 ```
 !python model_main_tf2.py --model_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn --pipeline_config_path=/content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config --checkpoint_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn
 ```
+![15](https://user-images.githubusercontent.com/113499057/196784195-db0281ff-b149-4d49-901d-2e29a28ba725.jpg)
+
 ใช้ Tensorboard แสดงกราฟค่า loss (ค่าคลาดเคลื่อนในการพยากรณ์)
 ```
 %load_ext tensorboard
 %tensorboard --logdir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn
 ```
+![g2_1](https://user-images.githubusercontent.com/113499057/196784215-cb2c1676-bf88-4253-aeca-a4ad28b6b00e.jpg)
+![g2_2](https://user-images.githubusercontent.com/113499057/196784235-a5ec3377-1313-403c-9c5f-de398eec4656.jpg)
+
 ทำการบันทึก model ออกมาเก็บไว้
 ```
 !python exporter_main_v2.py --input_type image_tensor --pipeline_config_path /content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config --trained_checkpoint_dir /content/drive/MyDrive/C_Dads7202/models/my_frcnn --output_directory /content/drive/MyDrive/C_Dads7202/exported_models/my_model
