@@ -64,11 +64,11 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 !wget http://download.tensorflow.org/models/object_detection/tf2/20200711/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz
 !tar -xvf faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz
 ```
-# Create train data:
+##### Create train data:
 ```
 !python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/train -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/train.record
 ```
-# Create test data:
+##### Create test data:
 ```
 !python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/test -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/test.record
 ```
