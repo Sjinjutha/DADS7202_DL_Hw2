@@ -39,6 +39,53 @@ clone github เพื่อจะได้ติดตั้ง COCO API
 ```
 !git clone https://github.com/cocodataset/cocoapi.git
 ```
+คำสั่ง make เพื่อสร้างและเก็บกลุ่มของโปรแกรมและไฟล์จากต้นทาง
+```
+!make
+cp -r pycocotools /content/drive/MyDrive/models/research
+```
+### Install the Object Detection API
+ติดตั้ง the Object Detection API
+```
+cp object_detection/packages/tf2/setup.py .
+```
+ติดตั้ง Python
+```
+!python -m pip install .
+```
+```
+!python object_detection/builders/model_builder_tf2_test.py
+```
+```
+cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
+```
+โหลด pre-model จาก Tensorflow 2 Detection Model Zoo
+```
+!wget http://download.tensorflow.org/models/object_detection/tf2/20200711/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz
+!tar -xvf faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz
+```
+# Create train data:
+```
+!python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/train -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/train.record
+```
+# Create test data:
+```
+!python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/test -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/test.record
+```
+```
+!python model_main_tf2.py --model_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn --pipeline_config_path=/content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config
+```
+```
+!python model_main_tf2.py --model_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn --pipeline_config_path=/content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config --checkpoint_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn
+```
+```
+%load_ext tensorboard
+%tensorboard --logdir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn
+```
+```
+!python exporter_main_v2.py --input_type image_tensor --pipeline_config_path /content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config --trained_checkpoint_dir /content/drive/MyDrive/C_Dads7202/models/my_frcnn --output_directory /content/drive/MyDrive/C_Dads7202/exported_models/my_model
+```
+
 
 
 จำนวนรอบของการ train = 5000
