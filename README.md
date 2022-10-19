@@ -109,7 +109,7 @@ batch size = 8
 ### Comparing between initial model and tuned model of Faster R-CNN
 
 ### Yolo V5
-clone github เพื่อจะได้ติดตั้ง YOlo-V5
+clone github เพื่อจะได้ติดตั้ง Yolo-V5
 ```
 #clone YOLOv5 and 
 !git clone https://github.com/ultralytics/yolov5  # clone repo
