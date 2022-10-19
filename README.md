@@ -194,6 +194,8 @@ from IPython.display import Image, clear_output  # to display images
 
 print(f"Setup complete. Using torch {torch.__version__} ({torch.cuda.get_device_properties(0).name if torch.cuda.is_available() else 'CPU'})")
 ```
+![y1](https://user-images.githubusercontent.com/113499057/196791465-12eb4ec9-ae57-480b-b8ca-adceeca7833c.jpg)
+
 ##### ตั้งค่า environment
 ```
 os.environ["DATASET_DIRECTORY"] = "/content/datasets"1
@@ -207,15 +209,28 @@ rf = Roboflow(api_key="5O37kFrhuKlGI2WuGhvK")
 project = rf.workspace("national-institute-of-development-administration-no8yz").project("brands-tcgnz")
 dataset = project.version(1).download("yolov5")
 ```
+![y2](https://user-images.githubusercontent.com/113499057/196791477-bb28c04b-c420-47bd-bd1b-f43f9c66f9c5.jpg)
+
 กำหนดขนาดของรูปภาพ(416),ขนาดของ batch(16),กำหนดจำนวนรอบ(150) แล้ว Train 
 ```
 !python train.py --img 416 --batch 16 --epochs 150 --data {dataset.location}/data.yaml --weights yolov5s.pt --cache
 ```
+![y3](https://user-images.githubusercontent.com/113499057/196791483-74ddeb93-6805-43fc-952a-8af9e09295e1.jpg)
+
+Evaluate Custom YOLOv5 Detector Performance
+```
+%load_ext tensorboard
+%tensorboard --logdir runs
+```
+![y4](https://user-images.githubusercontent.com/113499057/196791486-57f784fc-da25-4348-87dc-5cccd6d9f8e7.jpg)
+
 **Run Inference With Trained Weights**
 เอาข้อมูล pre-trained model มาทดสอบ
 ```
 !python detect.py --weights /content/yolov5/runs/train/exp2/weights/best.pt --img 416 --conf 0.1 --source /content/datasets/Brands-1/test/images
 ```
+่กเก่เกปเมใ้
+
 ทดลองนำ model มาใช้กับข้อมูลชุด test
 ```
 import glob
@@ -226,6 +241,12 @@ for imageName in glob.glob('/content/yolov5/runs/detect/exp4/*.jpg'): #assuming 
     display(Image(filename=imageName))
     print("\n")
 ```
+![y5](https://user-images.githubusercontent.com/113499057/196791488-0b5dde15-a28d-4d9d-a882-645fba322384.jpg)
+
+![y6](https://user-images.githubusercontent.com/113499057/196791492-7afa26aa-4392-49d5-a3a6-04f008ea16e8.jpg)
+
+![y7](https://user-images.githubusercontent.com/113499057/196791499-3c1a43d6-df6f-442d-87ac-e3c560d5762a.jpg)
+
 
 ### ปัญหาที่พบในระหว่างการ train โดยใช้เทคนิค Faster R-CNN
 
