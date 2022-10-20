@@ -47,15 +47,20 @@ Clone github เพื่อจะได้ติดตั้ง COCO API
 ```
 ![06](https://user-images.githubusercontent.com/113499057/196777068-921c6d20-ddb3-4d5e-886d-7b14d3162f9f.jpg)
 
-คำสั่ง make เพื่อสร้างและเก็บกลุ่มของโปรแกรมและไฟล์จากต้นทาง
+คำสั่ง make เพื่อสร้างและเก็บกลุ่มของโปรแกรมและไฟล์จากต้นทาง และคัดลอกไฟล์ python
 ```
 !make
 cp -r pycocotools /content/drive/MyDrive/models/research
 ```
-ติดตั้ง the Object Detection API และติดตั้งไฟล์ python ทุกไฟล์
+ติดตั้ง the Object Detection API
+ตั้ง directory ตามเส้นทางข้างล่างเพื่อคัดลอกไฟล์ setup.py ลงไป
+```
+cd /content/drive/MyDrive/models/research
+```
 ```
 cp object_detection/packages/tf2/setup.py .
 ```
+โดย (.) นี้คือการติดตั้ง library ทั้งหมดจาก research folder
 ```
 !python -m pip install .
 ```
@@ -76,7 +81,7 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 ![11](https://user-images.githubusercontent.com/113499057/196779940-32ad199d-3347-4633-afa9-56fa1cf71d9d.jpg)
 ![12](https://user-images.githubusercontent.com/113499057/196779955-b4f4f53f-6112-4b6e-963b-2a856088c166.jpg)
 
-**สร้าง label_map.pbtxt** เพื่อเป็นการนิยาย classes ที่เราต้องการตรวจจับแล้วนำมาเก็บใน annotation folder เพื่อนำไปสร้างไฟล์ .record ในขั้นตอนต่อไป
+**สร้าง label_map.pbtxt** เพื่อเป็นการนิยาม classes ที่เราต้องการตรวจจับแล้วนำมาเก็บใน annotation folder เพื่อนำไปสร้างไฟล์ .record ในขั้นตอนต่อไป
 
 ![label](https://user-images.githubusercontent.com/113499057/196919960-06032020-f934-46ac-81bf-845b1b217190.jpg)
 
