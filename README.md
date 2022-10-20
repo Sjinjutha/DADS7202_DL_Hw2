@@ -119,9 +119,9 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 แนะนำให้ปรับขนาดมิติเล็กและใหญ่ที่สุดให้เท่ากับขนาดรูปภาพของเราที่ใช้ (416 * 416)
 ในการปรับแก้ไข config จะใช้หลัก ๆ อยู่ 4 ไฟล์ ได้แก่
 * ckpt-0.index คือไฟล์ที่ไว้เก็บค่าของ pre-trained model ที่เรานำมาใช้
-* label_map.txt
-* train.record
-* test.record
+* label_map.txt (ใน annotations folder)
+* train.record (ใน annotations folder)
+* test.record (ใน annotations folder)
 ```
 min_dimension: 416
 max_dimension: 416
@@ -154,6 +154,7 @@ eval_input_reader: {
 
 
 **Train model**
+ตั้งค่า path ของ model directory  และ pipeline config
 ```
 !python model_main_tf2.py --model_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn --pipeline_config_path=/content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config
 ```
