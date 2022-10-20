@@ -170,24 +170,35 @@ eval_input_reader: {
 - num_steps: 10000
 - total_steps: 10000
 - warmup_steps: 1000
-จะเห็นว่า model ยังไม่ดีเท่าที่ควร เพราะไม่สามารถตรวจจับวัตถุได้ครบหมดทุกตำแหน่งที่มี จึงได้มีการปรับ ้ัhyperparameter ให้ model ในรอบต่อไป
+
+จะเห็นว่า model ยังไม่ดีเท่าที่ควร เพราะไม่สามารถตรวจจับวัตถุได้ครบหมดทุกตำแหน่งที่มี จึงได้มีการปรับ hyperparameter ให้ model ในรอบต่อไป
 ![16](https://user-images.githubusercontent.com/113499057/196785683-8d1d8146-4c0c-43dd-9a25-76c2a882c69f.jpg)
 
 ### Tuned model
-ในการ run model ในครั้งนี้ใช้
+ในการ run model ในครั้งนี้ใช้ (แก้ไขที่ไฟล์ pipeline.config)
 - batch size: 8
 - num_steps: 20000
 - total_steps: 20000 (num_steps = total_steps)
 - warmup_steps: 2000 (แนะนำให้ใช้จำนวน 10% ของจำนวนรอบทั้งหมด)
 
-#### ผลลัพธ์ของการ Run Model
-Train Model
+แต่ยังคงใช้ไฟล์อื่น ๆ เหมือนเดิม คือ ckpt-0.index, label_map.txt, train.record, test.record
+
+#### Train Model
 
 ![18](https://user-images.githubusercontent.com/113499057/196789197-6cc69c8f-1594-4649-a4be-fdf4b51bac9c.jpg)
 
-Evaluation แสดงประสิทธิภาพของ model
+#### Evaluation แสดงประสิทธิภาพของ model
 
 ![19](https://user-images.githubusercontent.com/113499057/196789205-f91017ad-e16f-4fda-90bd-a3bc4360d480.jpg)
+
+จากรูปจะได้ว่า model ของเรานั้น
+|    IoU    | Precision |
+|-----------|-----------|
+| 0.50:0.95 | 0.455     |
+| 0.50      | 0.900     |
+| 0.75      | 0.454     |
+
+
 ใช้ Tensorboard แสดงกราฟค่า loss (ค่าคลาดเคลื่อนในการพยากรณ์)
 
 ![t_3](https://user-images.githubusercontent.com/113499057/196929052-65c41b69-4b18-4d97-844f-0aa38af6e0c5.jpg)
