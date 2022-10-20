@@ -169,7 +169,7 @@ eval_input_reader: {
 ![15](https://user-images.githubusercontent.com/113499057/196784195-db0281ff-b149-4d49-901d-2e29a28ba725.jpg)
 
 จากรูปจะได้ว่า model ของเรานั้น
-|    IoU    | Precision |
+|    IoU    |    mAP    |
 |-----------|-----------|
 | 0.50:0.95 | 0.439     |
 | 0.50      | 0.861     |
@@ -217,7 +217,7 @@ eval_input_reader: {
 ![19](https://user-images.githubusercontent.com/113499057/196789205-f91017ad-e16f-4fda-90bd-a3bc4360d480.jpg)
 
 จากรูปจะได้ว่า model ของเรานั้น
-|    IoU    | Precision |
+|    IoU    |    mAP    |
 |-----------|-----------|
 | 0.50:0.95 | 0.455     |
 | 0.50      | 0.900     |
@@ -559,7 +559,7 @@ def retina_train_(steps_=100):
             csv {annot_train_dir}  {classes_dir} \
             --val-annotations {annot_val_dir}
 ```
-### Train Model1 1
+#### Train Model 1
 ในการ run ครั้งนี้ใช้
 - batch size = 1
 - num steps = 100
@@ -570,7 +570,7 @@ retina_train_(100)
 ![n12t](https://user-images.githubusercontent.com/113499057/196982800-a6395eeb-509e-4fa0-b526-44dc04b25790.jpg)
 ![n12t-2](https://user-images.githubusercontent.com/113499057/196982806-6ea84184-d700-4867-b936-a241abf55f13.jpg)
 
-### Train Model1 2
+#### Train Model 2
 ในการ run ครั้งนี้ใช้
 - batch size = 1
 - num steps = 500
@@ -580,7 +580,7 @@ retina_train_(steps_=500)
 ```
 ![n13t-1](https://user-images.githubusercontent.com/113499057/196982811-00f54af7-e65b-4ab5-90e4-db2524fc5493.jpg)
 
-### Train Model1 3
+#### Train Model 3
 ในการ run ครั้งนี้ใช้
 - batch size = 1
 - num steps = 1000
@@ -590,7 +590,7 @@ retina_train_(steps_=1000)
 ```
 ![n14t](https://user-images.githubusercontent.com/113499057/196982813-14e7c229-8696-4197-af05-98f383e87c27.jpg)
 
-**Evaluation**
+#### Evaluation
 เตรียมข้อมูลเพื่อตรวจสอบประสิทธิภาพในการพยากรณ์ผลของ model โดยการสุ่มบางภาพจากชุด test มาเปรียบเทียบระหว่าง predicted image และ actual image
 ```
 from keras_retinanet import models
@@ -689,15 +689,23 @@ for i in range(1,4):
 ![n17](https://user-images.githubusercontent.com/113499057/196982943-f5d2eda2-aae7-4075-ae3c-3cfb21eeb6ff.jpg)
 
 ### Comparing between initial model and tuned model of RetinaNet
+|                                   |    mAP   |  num steps |
+|-----------------------------------|----------|------------|
+| ResNet50                          |  0.1317  |    100     |
+| ResNet50                          |  0.3967  |    500     |
+| ResNet50                          |  0.4599  |    1000*   | *กำหนด num_steps=1000 แต่ในทางปฎิบัติ ในการ run 1 epoch จะ train เพียงประมาณ 700 steps โดยคาดว่ามากจากจำนวนของชุดข้อมูลชุด train มีน้อยกว่าจำนวน steps ที่กำหนด
+
+จากการปรับค่าบน default hyperparameter ของ pre-trained model นั่นคือ num_steps ตามตารางข้างต้น โดยกำหนดค่า epochs ที่ 30 รอบ
+
+จากผลการทดลองให้การ train model 3 เป็น model ที่ดีที่สุด เนื่องจากให้ mAP สูงที่สุด
 
 ## Comparing between Faster R-CNN and RetinaNet
-|                                   | batch size |  num steps |  epochs |  GPU ที่ใช้ประมวลผล  | Precision  |
-|-----------------------------------|------------|------------|---------|-------------------|------------|
-| Faster R-CNN ResNet50 V1 640x640  | 4          | 10000      | 1       |                   |            |
-| Faster R-CNN ResNet50 V1 640x640  | 8          | 20000      | 1       |                   |            |
-| ResNet50                          | 1          | 100        | 30      |                   |            |
-| ResNet50                          | 1          | 500        | 30      |                   |            |
-| ResNet50                          | 1          | 1000       | 30      |                   |            |
+|                                   | batch size |  num steps |  epochs |    mAP    |                               GPU ที่ใช้ประมวลผล                                 |
+|-----------------------------------|------------|------------|---------|-----------|-------------------------------------------------------------------------------|
+| Faster R-CNN ResNet50 V1 640x640  | 8          | 20000      | 1       |   0.9000  | GPU 0: Tesla T4 (UUID: GPU-7ff9c782-d6e4-d237-988a-4d7b930fd0d1)              |
+| ResNet50                          | 1          | 1000       | 30      |   0.4599  | GPU 0: Tesla V100-SXM2-16GB (UUID: GPU-1829761b-5efa-4859-b8f7-667f7182fe45)  |
+
+1.กลุ่มDLแต่DLสู้กลับ จินต์จุฑา สัจจาธนากุล พงศ์พัฒน์ เมธานรธีร์ พิมพ์พิศา งามจันทร์ทอง 2.กลุ่มเราทำ object detection กับ dataset แบรนด์น้ำดื่ม3แบรนด์(Aquafina, Crystal, Nestle Purelife)  เพื่อระบุตำแหน่งโลโก้ของแบรนด์น้ำดื่มทั้ง3แบรนด์3.จากผลการจูนโมเดล Faster RCNN มีค่าผลการทดลอง mAPสูงสุดที่ 0.900(IoU = 0.5) และผลจากการจูนโมเดล RetinaNet มีค่าผลการทดลอง mAPสูงสุดที่ 0.4599(ไม่ระบุ IoU)
 
 ## Reference
 [1] (2022) Data preprocessing from https://app.roboflow.com
