@@ -52,11 +52,10 @@ Clone github เพื่อจะได้ติดตั้ง COCO API
 !make
 cp -r pycocotools /content/drive/MyDrive/models/research
 ```
-ติดตั้ง the Object Detection API
+ติดตั้ง the Object Detection API และติดตั้งไฟล์ python ทุกไฟล์
 ```
 cp object_detection/packages/tf2/setup.py .
 ```
-ติดตั้ง Python
 ```
 !python -m pip install .
 ```
@@ -77,14 +76,15 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 ![11](https://user-images.githubusercontent.com/113499057/196779940-32ad199d-3347-4633-afa9-56fa1cf71d9d.jpg)
 ![12](https://user-images.githubusercontent.com/113499057/196779955-b4f4f53f-6112-4b6e-963b-2a856088c166.jpg)
 
-**สร้าง label_map.pbtxt** แล้วนำมาเก็บใน annotation folder เพื่อนำไปสร้างไฟล์ .record ในขั้นตอนต่อไป
+**สร้าง label_map.pbtxt** เพื่อเป็นการนิยาย classes ที่เราต้องการตรวจจับแล้วนำมาเก็บใน annotation folder เพื่อนำไปสร้างไฟล์ .record ในขั้นตอนต่อไป
 
+![label](https://user-images.githubusercontent.com/113499057/196919960-06032020-f934-46ac-81bf-845b1b217190.jpg)
 
-**สร้าง train data** แปลงเป็น tfrecord file จะได้ไฟล์ออกออกมาเป็น train.record
+**นำ train data** แปลงเป็น tfrecord file เพื่อนำชุดข้อมูลรูปภาพชุด train ของเราทั้ง .jpg และ .xml บีบอัดเพื่อที่สามรถนำเข้าไปใช้ใน model ได้ และจะได้ไฟล์ออกออกมาเป็น train.record
 ```
 !python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/train -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/train.record
 ```
-**สร้าง test data** แปลงเป็น tfrecord file จะได้ไฟล์ออกออกมาเป็น test.record
+**นำ test data** แปลงเป็น tfrecord file เพื่อนำชุดข้อมูลรูปภาพชุด test ของเราทั้ง .jpg และ .xml บีบอัดเพื่อที่สามรถนำเข้าไปใช้ใน model ได้ และจะได้ไฟล์ออกออกมาเป็น test.record
 ```
 !python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/test -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/test.record
 ```
@@ -94,7 +94,7 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 
 แนะนำให้ปรับขนาดมิติเล็กและใหญ่ที่สุดให้เท่ากับขนาดรูปภาพของเราที่ใช้ (416 * 416)
 ในการปรับแก้ไข config จะใช้หลัก ๆ อยู่ 4 ไฟล์ ได้แก่
-* ckpt-0.index คือไฟล์ที่ไว้เก็บค่าต่าง ๆ ที่ได้จากการ train model
+* ckpt-0.index คือไฟล์ที่ไว้เก็บค่าของ pre-trained model ที่เรานำมาใช้
 * label_map.txt
 * train.record
 * test.record
@@ -135,7 +135,7 @@ eval_input_reader: {
 ```
 ![14](https://user-images.githubusercontent.com/113499057/196784178-89b1034b-883d-46fa-a1c5-7f07f17472da.jpg)
 
-จากการคำสั่งการ train ข้างต้นจะสั่งให้บอกค่า loss ออกมาในทุก ๆ 100 steps โดยแต่ละ step จะใช้เวลาคำนวน 0.097 วินาที หลังจากนั้นเราจะใช้ค่าที่ได้จากการ train นี้มาประเมิน model ในขั้นตอนต่อไป
+จากการคำสั่งการ train ข้างต้นจะสั่งให้บอกค่า loss ออกมาในทุก ๆ 100 steps โดยแต่ละ step จะใช้เวลาคำนวน 0.097 วินาที หลังจากนั้นเราจะใช้ค่าที่ได้จากการ train นี้มาประเมิน model ในขั้นตอนต่อไป ซึ่งเก็บอยู่ checkpoint file
 
 **Evaluation แสดงประสิทธิภาพของ model**
 ```
