@@ -574,7 +574,7 @@ retina_train_(steps_=500)
 ```
 retina_train_(steps_=1000)
 ```
-
+![n14t](https://user-images.githubusercontent.com/113499057/196982813-14e7c229-8696-4197-af05-98f383e87c27.jpg)
 ```
 from keras_retinanet import models
 from keras_retinanet.utils.image import read_image_bgr, preprocess_image, resize_image
@@ -592,7 +592,7 @@ model = models.convert_model(model)
 labels_to_names = pd.read_csv(classes_dir,header=None).T.loc[0].to_dict()
 labels_to_names
 ```
-
+![n15](https://user-images.githubusercontent.com/113499057/196982926-774a71e8-cc8d-4966-91c9-044cb716103f.jpg)
 ```
 THRES_SCOREs = 0.35  # Set Score Threshold Value
 
@@ -654,6 +654,10 @@ data_sample = test_annot.sample(n=5)  #Predict on Random 5 Image
 for i,r in data_sample.iterrows():
     img_inference(r['fileName'], test_annot, THRES_SCORE_Adjust)
 ```
+![n16p-1](https://user-images.githubusercontent.com/113499057/196982934-90ca3030-d309-457b-b060-cd7600c67899.jpg)
+
+![n16p-2](https://user-images.githubusercontent.com/113499057/196982940-33d776ee-c1a8-4809-a81e-039a0c74ca15.jpg)
+
 ```
 import tensorflow as tf
 
@@ -664,6 +668,8 @@ for i in range(1,4):
         csv {annot_test_dir} {classes_dir} \
         {model_path_r} --convert-model
 ```
+![n17](https://user-images.githubusercontent.com/113499057/196982943-f5d2eda2-aae7-4075-ae3c-3cfb21eeb6ff.jpg)
+
 ### Comparing between initial model and tuned model of RetinaNet
 
 ## Comparing between Faster R-CNN and RetinaNet
