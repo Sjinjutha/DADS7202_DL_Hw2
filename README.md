@@ -246,14 +246,14 @@ eval_input_reader: {
 ![16](https://user-images.githubusercontent.com/113499057/196785683-8d1d8146-4c0c-43dd-9a25-76c2a882c69f.jpg)
 ![20](https://user-images.githubusercontent.com/113499057/196789208-85f177a2-64ef-4051-a67c-7ad05917c773.jpg)
 
-จากการเปรียบเทียบรูปสองรูปที่ได้จากการ train model พบว่า model ยังไม่ดีเท่าที่ควร อาจมีกาปรับแก้ไขค่า hyperparameter ต่อไปแต่ไม่เป็นข้อแนะนำ เนื่องจากถือเป็นการสิ้นเปลืองเวลาและทรัพยากรโดยไม่จำเป็น
+จากการเปรียบเทียบรูปสองรูปที่ได้จากการ train model พบว่า model ยังไม่ดีเท่าที่ควร อาจมีกาปรับแก้ไขค่า hyperparameter ต่อไปแต่ไม่เป็นข้อแนะนำ เนื่องจากถือเป็นการสิ้นเปลืองเวลาและทรัพยากรโดยไม่จำเป็น เพราะค่า loss ที่แสดงในกราฟ ไม่ได้ลดลงมากเท่าที่ควร
 
 #### Tuned Model
 
 ### Yolo V5
 clone github เพื่อจะได้ติดตั้ง Yolo-V5
 ```
-#clone YOLOv5 and 
+#clone YOLOv5 and
 !git clone https://github.com/ultralytics/yolov5  # clone repo
 %cd yolov5
 %pip install -qr requirements.txt # install dependencies
@@ -284,20 +284,24 @@ dataset = project.version(1).download("yolov5")
 ```
 ![y2](https://user-images.githubusercontent.com/113499057/196791477-bb28c04b-c420-47bd-bd1b-f43f9c66f9c5.jpg)
 
-กำหนดขนาดของรูปภาพ(416),ขนาดของ batch(16),กำหนดจำนวนรอบ(150) แล้ว Train 
+**Train model***
+- กำหนดขนาด 416 * 146
+- batch size: 16
+- num_steps: 150
+
 ```
 !python train.py --img 416 --batch 16 --epochs 150 --data {dataset.location}/data.yaml --weights yolov5s.pt --cache
 ```
 ![y3](https://user-images.githubusercontent.com/113499057/196791483-74ddeb93-6805-43fc-952a-8af9e09295e1.jpg)
 
-Evaluation แสดงประสิทธิภาพของ model
+**Evaluation แสดงประสิทธิภาพของ model**
 ```
 %load_ext tensorboard
 %tensorboard --logdir runs
 ```
 ![y4](https://user-images.githubusercontent.com/113499057/196791486-57f784fc-da25-4348-87dc-5cccd6d9f8e7.jpg)
 
-จากกราฟจะเห็นได้ว่า ค่าสัดส่วน metrics/mAP มีค่าเพิ่มขึ้น ค่ายิ่งมากยิ่งแสดงถึงความแม่นยำ
+จากกราฟจะเห็นได้ว่า ค่าสัดส่วน metrics/mAP (Mean-Average Precision) มีค่าเพิ่มขึ้น ซึ่งค่ายิ่งมากยิ่งแสดงถึงความแม่นยำ
 
 **Run Inference With Trained Weights**
 เอาข้อมูล pre-trained model มาทดสอบ
@@ -307,7 +311,7 @@ Evaluation แสดงประสิทธิภาพของ model
 
 ![y9](https://user-images.githubusercontent.com/113499057/196794863-971aa523-f62d-410b-8bd5-deb66ac36420.jpg)
 
-ทดลองนำ model มาใช้กับข้อมูลชุด test
+ทดลองนำ model มาใช้กับข้อมูลชุด test ทั้งชุด
 ```
 import glob
 from IPython.display import Image, display
@@ -325,8 +329,7 @@ for imageName in glob.glob('/content/yolov5/runs/detect/exp4/*.jpg'): #assuming 
 
 ![y7](https://user-images.githubusercontent.com/113499057/196791499-3c1a43d6-df6f-442d-87ac-e3c560d5762a.jpg)
 
-
-### ปัญหาที่พบในระหว่างการ train โดยใช้เทคนิค Faster R-CNN
+จะเห็นได้ว่า model ที่ใช้เทคนิค YOLOv5 แม่นยำกว่า ใช้เวลาและทรัพยากรน้อยกว่า อาจแนะนำให้ใช้เทคนิคนี้มากกว่า Faster R-CNN
 
 ## Model 2: RetinaNet (one-stage model)
 เทคนิค RatinaNet ทำการแบ่งชุดข้อมูลออกเป็น train set 70% (840 รูป) validation set 20% (240 รูป) และ test set 10% (120 รูป)
