@@ -74,10 +74,12 @@ cd /content/drive/MyDrive/models/research
 ```
 cp object_detection/packages/tf2/setup.py .
 ```
-โดย (.) นี้คือการติดตั้ง library ทั้งหมดจาก research folder
+![p5](https://user-images.githubusercontent.com/113499057/196954082-7f65073f-a830-4222-a2b0-095e9e7eae20.jpg)
+
 ```
 !python -m pip install .
 ```
+โดย (.) นี้คือการติดตั้ง library ทั้งหมดจาก research folder
 ```
 !python object_detection/builders/model_builder_tf2_test.py
 ```
