@@ -214,6 +214,14 @@ eval_input_reader: {
 ### Comparing between initial model and tuned model of Faster R-CNN
 #### Initial Model
 
+![t_22](https://user-images.githubusercontent.com/113499057/196929032-620c2e2f-ee82-4019-bc3a-cce5c8fe9e39.jpg)
+
+![t_3](https://user-images.githubusercontent.com/113499057/196929052-65c41b69-4b18-4d97-844f-0aa38af6e0c5.jpg)
+
+![16](https://user-images.githubusercontent.com/113499057/196785683-8d1d8146-4c0c-43dd-9a25-76c2a882c69f.jpg)
+
+![20](https://user-images.githubusercontent.com/113499057/196789208-85f177a2-64ef-4051-a67c-7ad05917c773.jpg)
+
 #### Tuned Model
 
 ### Yolo V5
@@ -286,6 +294,8 @@ for imageName in glob.glob('/content/yolov5/runs/detect/exp4/*.jpg'): #assuming 
 ![y5](https://user-images.githubusercontent.com/113499057/196791488-0b5dde15-a28d-4d9d-a882-645fba322384.jpg)
 
 ![y6](https://user-images.githubusercontent.com/113499057/196791492-7afa26aa-4392-49d5-a3a6-04f008ea16e8.jpg)
+
+![16](https://user-images.githubusercontent.com/113499057/196785683-8d1d8146-4c0c-43dd-9a25-76c2a882c69f.jpg)
 
 ![y7](https://user-images.githubusercontent.com/113499057/196791499-3c1a43d6-df6f-442d-87ac-e3c560d5762a.jpg)
 
