@@ -104,7 +104,7 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 ![p7](https://user-images.githubusercontent.com/113499057/196963189-413810d0-9b20-483c-a3e5-7e3679dbde7f.jpg)
 ![label](https://user-images.githubusercontent.com/113499057/196919960-06032020-f934-46ac-81bf-845b1b217190.jpg)
 
-**นำ train data** แปลงเป็น tfrecord file เพื่อนำชุดข้อมูลรูปภาพชุด train ของเราทั้ง .jpg และ .xml บีบอัดเพื่อที่สามรถนำเข้าไปใช้ใน model ได้ และจะได้ไฟล์ออกออกมาเป็น train.record
+**นำ train data** แปลงเป็น tfrecord file เพื่อนำชุดข้อมูลรูปภาพชุด train ของเราทั้ง .jpg และ .xml บีบอัดเพื่อที่สามารถนำเข้าไปใช้ใน model ได้ และจะได้ไฟล์ออกออกมาเป็น train.record
 ```
 !python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/train -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/train.record
 ```
