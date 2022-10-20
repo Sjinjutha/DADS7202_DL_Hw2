@@ -34,22 +34,27 @@ Cloning TFOD 2.0 Github
 cd /content/drive/MyDrive
 !git clone https://github.com/tensorflow/models.git
 ```
-![5](https://user-images.githubusercontent.com/113499057/196776972-08ecd031-33dd-4e18-9152-84507b31becd.jpg)
-
 ![p1](https://user-images.githubusercontent.com/113499057/196954087-f9475a7e-8226-41da-b050-a9a7d3957369.jpg)
+
+![5](https://user-images.githubusercontent.com/113499057/196776972-08ecd031-33dd-4e18-9152-84507b31becd.jpg)
 
 หลังจาก คำสั่ง clone จะได้โฟลเดอร์ models ขึ้นมาบน Drive
 
-ตั้งค่า directory และติดตั้ง Protocal Buffet เพื่อสร้างท่อในการลำเลียงข้อมูลส่งจากอีกที่หนึ่งไปยังอีกที่หนึ่ง
+ตั้งค่า directory และติดตั้ง Protocal Buffet เพื่อสร้างท่อในการลำเลียงข้อมูลส่งจากอีกที่หนึ่งไปยัง research folder
 ```
 cd /content/drive/MyDrive/models/research
 !protoc object_detection/protos/*.proto --python_out=.
 ```
-Clone github เพื่อจะได้ติดตั้ง COCO API
+![p2](https://user-images.githubusercontent.com/113499057/196954091-b4cbf027-0165-4768-ad01-e9bc7ce71c48.jpg)
+
+Clone github เพื่อติดตั้ง COCO API
 ```
 !git clone https://github.com/cocodataset/cocoapi.git
 ```
 ![06](https://user-images.githubusercontent.com/113499057/196777068-921c6d20-ddb3-4d5e-886d-7b14d3162f9f.jpg)
+![p3](https://user-images.githubusercontent.com/113499057/196954073-3087a72a-3641-43a0-9029-830da89807a5.jpg)
+
+หลังจาก Clone จะได้ cocoapi folder
 
 คำสั่ง make เพื่อสร้างและเก็บกลุ่มของโปรแกรมและไฟล์จากต้นทาง และคัดลอกไฟล์ python
 ```
@@ -61,9 +66,6 @@ cp -r pycocotools /content/drive/MyDrive/models/research
 ```
 cd /content/drive/MyDrive/models/research
 ```
-![p2](https://user-images.githubusercontent.com/113499057/196954091-b4cbf027-0165-4768-ad01-e9bc7ce71c48.jpg)
-
-cd /content/drive/MyDrive/models/research ตั้ง dir ให้มาอยู่ที่โฟลเดอร์ research
 ```
 cp object_detection/packages/tf2/setup.py .
 ```
