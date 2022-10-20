@@ -338,7 +338,7 @@ for imageName in glob.glob('/content/yolov5/runs/detect/exp4/*.jpg'): #assuming 
 from google.colab import drive
 drive.mount('/content/drive')
 ```
-
+![n0](https://user-images.githubusercontent.com/113499057/196983454-ff2ce773-b934-4808-9f1f-aba7df701fde.jpg)
 ```
 import sys
 print( f"Python {sys.version}\n" )
@@ -359,7 +359,7 @@ print( f"TensorFlow detected { len(gpus) } GPU(s):" )
 for i, gpu in enumerate(gpus):
   print( f".... GPU No. {i}: Name = {gpu.name} , Type = {gpu.device_type}" )
 ```
-
+![n2](https://user-images.githubusercontent.com/113499057/196982582-0864f318-f163-4190-a583-3659fcd4ad41.jpg)
 ```
 import os
 print(os.getcwd())
@@ -372,13 +372,13 @@ print(os.getcwd())
 !pip install .
 !python setup.py build_ext --inplace
 ```
-
+![n4](https://user-images.githubusercontent.com/113499057/196982591-7b424116-4b25-482b-b027-bb1e8ffb4ff4.jpg)
 ```
 !pip install wget
 !pip install pytz
 !pip install Cython pandas tf-slim lvis
 ```
-
+![n5](https://user-images.githubusercontent.com/113499057/196982594-b53a91ec-f15f-48ed-85e1-2588a84f7b13.jpg)
 ```
 import numpy as np
 import shutil
@@ -451,7 +451,7 @@ for i in list_name:
 
 # os.chdir("/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test")
 ```
-
+![n6-1](https://user-images.githubusercontent.com/113499057/196982598-1865d645-6b63-44c8-9307-ae90dbc5696f.jpg)
 ```
 annot_train_dir = "/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test/Train/annotation_Train_GoogleColab.csv"
 annot_val_dir =   "/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test/Val/annotation_Val_GoogleColab.csv"
@@ -466,17 +466,17 @@ columns_ = ['fileName', 'xmin', 'ymin', 'xmax', 'ymax', 'class']
 train_annot = pd.read_csv(annot_train_dir, names=columns_)
 train_annot.head()
 ```
-
+![n7](https://user-images.githubusercontent.com/113499057/196982602-be454a9d-31b9-4ce8-a86a-5c4df41a84f8.jpg)
 ```
 val_annot = pd.read_csv(annot_val_dir, names=columns_)
 val_annot.head()
 ```
-
+![n8v](https://user-images.githubusercontent.com/113499057/196982567-28d6573a-44ca-44de-aa68-d35b2010b091.jpg)
 ```
 test_annot = pd.read_csv(annot_test_dir, names=columns_)
 test_annot.head()
 ```
-
+![n9t](https://user-images.githubusercontent.com/113499057/196982574-35405297-0826-4435-a764-ff9320f66b59.jpg)
 ```
 classes = ['Nestle','Aquafina', 'Crystal']
 pd.read_csv(classes_dir, names=['class', 'index'])
