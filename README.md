@@ -572,6 +572,8 @@ retina_train_(100)
 ![n12t](https://user-images.githubusercontent.com/113499057/196982800-a6395eeb-509e-4fa0-b526-44dc04b25790.jpg)
 ![n12t-2](https://user-images.githubusercontent.com/113499057/196982806-6ea84184-d700-4867-b936-a241abf55f13.jpg)
 
+ผลลัพธ์ที่ได้จาก Model 1 (Best result)
+
 ![Picture1](https://user-images.githubusercontent.com/113499057/197006734-559e4402-0fe9-47d8-a60c-b17a2b121033.jpg)
 
 #### Train Model 2
@@ -584,6 +586,8 @@ retina_train_(steps_=500)
 ```
 ![n13t-1](https://user-images.githubusercontent.com/113499057/196982811-00f54af7-e65b-4ab5-90e4-db2524fc5493.jpg)
 
+ผลลัพธ์ที่ได้จาก Model 2 (Best result)
+
 ![Picture2](https://user-images.githubusercontent.com/113499057/197006770-1cc601bb-3fbc-4683-9274-c4415d925c35.jpg)
 
 #### Train Model 3
@@ -595,6 +599,8 @@ retina_train_(steps_=500)
 retina_train_(steps_=1000)
 ```
 ![n14t](https://user-images.githubusercontent.com/113499057/196982813-14e7c229-8696-4197-af05-98f383e87c27.jpg)
+
+ผลลัพธ์ที่ได้จาก Model 3 (Best result)
 
 ![Picture3](https://user-images.githubusercontent.com/113499057/197006779-ff946574-ced0-424b-b9e1-2bf31146243e.jpg)
 
