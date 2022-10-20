@@ -36,6 +36,10 @@ cd /content/drive/MyDrive
 ```
 ![5](https://user-images.githubusercontent.com/113499057/196776972-08ecd031-33dd-4e18-9152-84507b31becd.jpg)
 
+![p1](https://user-images.githubusercontent.com/113499057/196954087-f9475a7e-8226-41da-b050-a9a7d3957369.jpg)
+
+หลังจาก คำสั่ง clone จะได้โฟลเดอร์ models ขึ้นมาบน Drive
+
 ตั้งค่า directory และติดตั้ง Protocal Buffet เพื่อสร้างท่อในการลำเลียงข้อมูลส่งจากอีกที่หนึ่งไปยังอีกที่หนึ่ง
 ```
 cd /content/drive/MyDrive/models/research
@@ -57,6 +61,9 @@ cp -r pycocotools /content/drive/MyDrive/models/research
 ```
 cd /content/drive/MyDrive/models/research
 ```
+![p2](https://user-images.githubusercontent.com/113499057/196954091-b4cbf027-0165-4768-ad01-e9bc7ce71c48.jpg)
+
+cd /content/drive/MyDrive/models/research ตั้ง dir ให้มาอยู่ที่โฟลเดอร์ research
 ```
 cp object_detection/packages/tf2/setup.py .
 ```
