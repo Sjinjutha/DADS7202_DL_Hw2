@@ -89,7 +89,7 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 ```
 ![p6](https://user-images.githubusercontent.com/113499057/196954086-558149f1-0b3a-4159-832a-274d0272fa2b.jpg)
 
-โหลด pre-trained model จาก [Tensorflow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) และแตกไฟล์
+โหลด pre-trained model จาก [Tensorflow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) และแตกไฟล์ใส่ pre-trained-models 
 ```
 !wget http://download.tensorflow.org/models/object_detection/tf2/20200711/faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz
 !tar -xvf faster_rcnn_resnet50_v1_640x640_coco17_tpu-8.tar.gz
