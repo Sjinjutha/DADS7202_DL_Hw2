@@ -228,19 +228,25 @@ eval_input_reader: {
 
 ![t_3](https://user-images.githubusercontent.com/113499057/196929052-65c41b69-4b18-4d97-844f-0aa38af6e0c5.jpg)
 
+จากกราฟเป็นค่าความผิดพลาด (loss) จากการ train เมื่อเวลาผ่านไปความผิดพลาดยิ่งน้อยลง และค่อนข้างต่ำ
+
 ![20](https://user-images.githubusercontent.com/113499057/196789208-85f177a2-64ef-4051-a67c-7ad05917c773.jpg)
+
+จะเห็นว่า model ยังไม่ดีเท่าที่ควร เพราะไม่สามารถตรวจจับวัตถุได้ครบหมดทุกตำแหน่งที่มี แต่ถึงแม้ว่าค่า loss จะดีขึ้นตามลำดับ ผลลัพธ์ยังไม่ดีเท่าที่ควร
 
 
 ### Comparing between initial model and tuned model of Faster R-CNN
 #### Initial Model
 
 ![t_22](https://user-images.githubusercontent.com/113499057/196929032-620c2e2f-ee82-4019-bc3a-cce5c8fe9e39.jpg)
-
 ![t_3](https://user-images.githubusercontent.com/113499057/196929052-65c41b69-4b18-4d97-844f-0aa38af6e0c5.jpg)
 
-![16](https://user-images.githubusercontent.com/113499057/196785683-8d1d8146-4c0c-43dd-9a25-76c2a882c69f.jpg)
+จากการปรับแก้ไขค่า parameter การเพิ่มค่าจำนวนรอบ (num_steps) จะเห็นได้ว่าค่า loss ดีขึ้น (ลดลงตามลำดับ)
 
+![16](https://user-images.githubusercontent.com/113499057/196785683-8d1d8146-4c0c-43dd-9a25-76c2a882c69f.jpg)
 ![20](https://user-images.githubusercontent.com/113499057/196789208-85f177a2-64ef-4051-a67c-7ad05917c773.jpg)
+
+จากการเปรียบเทียบรูปสองรูปที่ได้จากการ train model พบว่า model ยังไม่ดีเท่าที่ควร อาจมีกาปรับแก้ไขค่า hyperparameter ต่อไปแต่ไม่เป็นข้อแนะนำ เนื่องจากถือเป็นการสิ้นเปลืองเวลาและทรัพยากรโดยไม่จำเป็น
 
 #### Tuned Model
 
