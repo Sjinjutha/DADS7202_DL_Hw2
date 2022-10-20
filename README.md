@@ -481,7 +481,7 @@ test_annot.head()
 classes = ['Nestle','Aquafina', 'Crystal']
 pd.read_csv(classes_dir, names=['class', 'index'])
 ```
-
+![n10](https://user-images.githubusercontent.com/113499057/196982791-dfce7ffa-c63c-4be6-a9d6-d233543de9f0.jpg)
 ```
 # Check annotation with 1 image
 
@@ -516,6 +516,7 @@ plt.show()
                   
 #show_image_with_boxes(data)
 ```
+![n11](https://user-images.githubusercontent.com/113499057/196982796-a8844574-0003-4eb4-8b28-5f0dcf59444e.jpg)
 ```
 os.chdir("/content/")
 os.getcwd()
@@ -552,6 +553,9 @@ def retina_train_(steps_=100):
 ```
 retina_train_(100)
 ```
+![n12t](https://user-images.githubusercontent.com/113499057/196982800-a6395eeb-509e-4fa0-b526-44dc04b25790.jpg)
+![n12t-2](https://user-images.githubusercontent.com/113499057/196982806-6ea84184-d700-4867-b936-a241abf55f13.jpg)
+
 ### Train Model1 2
 ในการ run ครั้งนี้ใช้
 - batch size = 1
@@ -560,6 +564,8 @@ retina_train_(100)
 ```
 retina_train_(steps_=500)
 ```
+![n13t-1](https://user-images.githubusercontent.com/113499057/196982811-00f54af7-e65b-4ab5-90e4-db2524fc5493.jpg)
+
 ### Train Model1 3
 ในการ run ครั้งนี้ใช้
 - batch size = 1
