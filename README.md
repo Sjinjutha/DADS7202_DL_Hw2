@@ -56,7 +56,12 @@ Clone github เพื่อติดตั้ง COCO API
 
 หลังจาก Clone จะได้ cocoapi folder
 
-คำสั่ง make เพื่อสร้างและเก็บกลุ่มของโปรแกรมและไฟล์จากต้นทาง และคัดลอกไฟล์ python
+```
+cd /content/drive/MyDrive/models/research/cocoapi/PythonAPI
+```
+![p4](https://user-images.githubusercontent.com/113499057/196954079-3a49f77c-f12e-4de5-8853-83086d28e74d.jpg)
+
+เลือก directory มาที่ PythonAPI folder และ run คำสั่ง make เพื่อสร้างและเก็บกลุ่มของโปรแกรมและไฟล์จากต้นทาง และคัดลอกไฟล์ python
 ```
 !make
 cp -r pycocotools /content/drive/MyDrive/models/research
