@@ -1,7 +1,9 @@
 # DADS7202_Deep Learning_Hw02
 
 # INTRODUCTION
-การตรวจจับจำแนกวัตถุ (Object Detection) โดยเปรียบเทียบ 2 models ระหว่าง Faster R-CNN และ Facebook RetinaNet
+การตรวจจับจำแนกวัตถุ (Object Detection) โดยเปรียบเทียบ 2 models ระหว่าง Faster R-CNN และ Facebook RetinaNet กับ datasets แบรนด์น้ำดื่ม 3 แบรนด์ (Aquafina, Crystal, Nestle Purelife) เป็นภาษาไทย เพื่อระบุตำแหน่งฉลากของแบรนด์น้ำดื่มทั้ง 3 แบรนด์ จากผลการปรับแก้ไข model พบว่า 
+- Faster R-CNN มีค่าผลการทดลอง mAP สูงสุดที่ 0.900 (IoU = 0.5) GPU ที่ใช้ train คือ GPU 0: Tesla T4 (UUID: GPU-7ff9c782-d6e4-d237-988a-4d7b930fd0d1)
+- RetinaNet มีค่าผลการทดลอง mAP สูงสุดที่ 0.4599 (ไม่ระบุ IoU) GPU ที่ใช้ train คือ GPU 0: Tesla V100-SXM2-16GB (UUID: GPU-1829761b-5efa-4859-b8f7-667f7182fe45)
 
 ## About Dataset
 ชุดข้อมูลที่สร้างขึ้นเองทั้งหมดประกอบด้วย Crystal, Nestle, Aquafina ทั้งหมด 1200 รูป ปรับขนาดรูปภาพเป็น 500 * 500 และนำรูปไปทำการ annotation สร้างกล่องขอบเขตของวัตถุเพื่อกำหนดว่าในพื้นที่บริเวณนี้เป็นของวัตถุอะไร บันทึกไฟล์รูปออกมาเป็น .xml (Pascal Voc)
@@ -284,7 +286,7 @@ dataset = project.version(1).download("yolov5")
 ```
 ![y2](https://user-images.githubusercontent.com/113499057/196791477-bb28c04b-c420-47bd-bd1b-f43f9c66f9c5.jpg)
 
-**Train model***
+**Train model**
 - กำหนดขนาด 416 * 146
 - batch size: 16
 - num_steps: 150
@@ -688,16 +690,19 @@ for i in range(1,4):
 ```
 ![n17](https://user-images.githubusercontent.com/113499057/196982943-f5d2eda2-aae7-4075-ae3c-3cfb21eeb6ff.jpg)
 
-### Comparing between initial model and tuned model of RetinaNet
+### Comparing between Model 1, Model 2 and Model 3 of RetinaNet
 |                                   |    mAP   |  num steps |
 |-----------------------------------|----------|------------|
 | ResNet50                          |  0.1317  |    100     |
 | ResNet50                          |  0.3967  |    500     |
-| ResNet50                          |  0.4599  |    1000*   | *กำหนด num_steps=1000 แต่ในทางปฎิบัติ ในการ run 1 epoch จะ train เพียงประมาณ 700 steps โดยคาดว่ามากจากจำนวนของชุดข้อมูลชุด train มีน้อยกว่าจำนวน steps ที่กำหนด
+| ResNet50                          |  0.4599  |    1000*   | 
+
+*กำหนด num_steps=1000 แต่ในทางปฎิบัติ ในการ run 1 epoch จะ train เพียงประมาณ 700 steps โดยคาดว่ามากจากจำนวนของชุดข้อมูลชุด train มีน้อยกว่าจำนวน steps ที่กำหนด
 
 จากการปรับค่าบน default hyperparameter ของ pre-trained model นั่นคือ num_steps ตามตารางข้างต้น โดยกำหนดค่า epochs ที่ 30 รอบ
 
 จากผลการทดลองให้การ train model 3 เป็น model ที่ดีที่สุด เนื่องจากให้ mAP สูงที่สุด
+
 
 ## Comparing between Faster R-CNN and RetinaNet
 |                                   | batch size |  num steps |  epochs |    mAP    |                               GPU ที่ใช้ประมวลผล                                 |
@@ -705,7 +710,12 @@ for i in range(1,4):
 | Faster R-CNN ResNet50 V1 640x640  | 8          | 20000      | 1       |   0.9000  | GPU 0: Tesla T4 (UUID: GPU-7ff9c782-d6e4-d237-988a-4d7b930fd0d1)              |
 | ResNet50                          | 1          | 1000       | 30      |   0.4599  | GPU 0: Tesla V100-SXM2-16GB (UUID: GPU-1829761b-5efa-4859-b8f7-667f7182fe45)  |
 
-1.กลุ่มDLแต่DLสู้กลับ จินต์จุฑา สัจจาธนากุล พงศ์พัฒน์ เมธานรธีร์ พิมพ์พิศา งามจันทร์ทอง 2.กลุ่มเราทำ object detection กับ dataset แบรนด์น้ำดื่ม3แบรนด์(Aquafina, Crystal, Nestle Purelife)  เพื่อระบุตำแหน่งโลโก้ของแบรนด์น้ำดื่มทั้ง3แบรนด์3.จากผลการจูนโมเดล Faster RCNN มีค่าผลการทดลอง mAPสูงสุดที่ 0.900(IoU = 0.5) และผลจากการจูนโมเดล RetinaNet มีค่าผลการทดลอง mAPสูงสุดที่ 0.4599(ไม่ระบุ IoU)
+
+## Discussion
+-  การ run ผ่าน local python (Jupyter Notebook) ไม่สามารถ import library เพื่อใช้ในการปรับแต่ง model แต่สามารถแก้ปัญหานี้ได้โดยการใช้ google collab แทน
+-  การใช้ google collab มีทรัพยากรไม่เพียงพอในการ train model ต้อง upgrade collab pro
+-  ข้อจำกัดของการดึง model ของคนอื่นมาใช้ อาจไม่สามารถปรับแก้ค่า hyperparameter ได้เท่าที่ควร ปรับได้เพียงตัวพื้นฐานเท่านั้น เช่น batch size, num_steps ในเทคนิค Faster R-CNN เราไม่สามารถแก้ไขจำนวน epochs ได้
+
 
 ## Reference
 [1] (2022) Data preprocessing from https://app.roboflow.com
