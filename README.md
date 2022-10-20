@@ -313,6 +313,20 @@ for imageName in glob.glob('/content/yolov5/runs/detect/exp4/*.jpg'): #assuming 
 
 [4] (2021) TFOD 2.0 Custom Object Detection Step By Step Tutorial from https://youtu.be/XoMiveY_1Z4
 
+[5] (2022) How to Train Your Own Object Detector Using TensorFlow Object Detection API form https://neptune.ai/blog/how-to-train-your-own-object-detector-using-tensorflow-object-detection-api
+
+[6] (2020) Object detection on Satellite Imagery using RetinaNet (Part 2) — Inference form https://medium.com/@ije_good/object-detection-on-satellite-imagery-using-retinanet-part-2-inference-aa0bf2a41eb4
+
+[7] (2022) Use keras-retinanet to train your own dataset form https://www.programmersought.com/article/73514120308/
+
+[8] (2022) How to build a Face Mask Detector using RetinaNet Model! from https://www.analyticsvidhya.com/blog/2020/08/how-to-build-a-face-mask-detector-using-retinanet-model/
+
+[9] (2022) keras-retinanet form https://github.com/fizyr/keras-retinanet
+
+[10] (2022) labelImg form https://github.com/heartexlabs/labelImg
+
+[11] (2022) Object Detection with RetinaNet form https://keras.io/examples/vision/retinanet/
+
 ## End Credit
 งานชิ้นนี้เป็นส่วนหนึ่งของวิชา DADS7202 Deep Learning หลักสูตรวิทยาศาสตร์มหาบัณฑิต คณะสถิติประยุกต์ สถาบันบัณฑิตพัฒนบริหารศาสตร์
 
