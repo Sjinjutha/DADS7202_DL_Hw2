@@ -10,7 +10,7 @@
 เทคนิค Faster R-CNN นำข้อมูลผ่านเว็บไซต์ https://app.roboflow.com เพื่อตรวจสอบ อีกทั้งมีการปรับขนาดรูปภาพเป็น 416 * 416 แต่ไม่ได้มีการทำ Data Augmentation เนื่องจากชุดข้อมูลที่เราสร้างมีจำนวนมากและหลากหลายในเรื่องของมุมภาพ แสง การตัดขอบ การหมุน รวมอยู่ในชุดข้อมูล และทำการแบ่งชุดข้อมูลออกเป็น train set 90% (1080 รูป) และ test set 10% (120 รูป)
 
 ### Initial model
-เชื่อมต่อ google collab กับ google drive ของเรา
+เชื่อมต่อ google collab กับ google drive ของเรา เนื่องจากการ runtime ในแต่ละครั้งจะไม่ได้มีการบันทึกข้อมูลที่เราทำไว้ จึงทำการเชื่อมต่อกับ google drive ของเราเพื่อเก็บบันทึกข้อมูล
 ```
 from google.colab import drive
 drive.mount('/content/drive')
@@ -41,7 +41,7 @@ cd /content/drive/MyDrive
 cd /content/drive/MyDrive/models/research
 !protoc object_detection/protos/*.proto --python_out=.
 ```
-clone github เพื่อจะได้ติดตั้ง COCO API
+Clone github เพื่อจะได้ติดตั้ง COCO API
 ```
 !git clone https://github.com/cocodataset/cocoapi.git
 ```
@@ -77,6 +77,8 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 ![11](https://user-images.githubusercontent.com/113499057/196779940-32ad199d-3347-4633-afa9-56fa1cf71d9d.jpg)
 ![12](https://user-images.githubusercontent.com/113499057/196779955-b4f4f53f-6112-4b6e-963b-2a856088c166.jpg)
 
+**สร้าง label_map.pbtxt** แล้วนำมาเก็บใน annotation folder เพื่อนำไปสร้างไฟล์ .record ในขั้นตอนต่อไป
+
 **สร้าง train data** แปลงเป็น tfrecord file จะได้ไฟล์ออกออกมาเป็น train.record
 ```
 !python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/train -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/train.record
@@ -90,7 +92,11 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 **แก้ไขในไฟล์ pipline.config ใน model ของเราเอง (ดึงเฉพาะส่วน code ที่เราต้องแก้ file path)**
 
 แนะนำให้ปรับขนาดมิติเล็กและใหญ่ที่สุดให้เท่ากับขนาดรูปภาพของเราที่ใช้ (416 * 416)
-ในการปรับแก้ไข config จะใช้หลัก ๆ อยู่ 3 ไฟล์ ได้แก่ ckpt-0.index, label_map.txt, train.record, test.record
+ในการปรับแก้ไข config จะใช้หลัก ๆ อยู่ 4 ไฟล์ ได้แก่
+* ckpt-0.index คือไฟล์ที่ไว้เก็บค่าต่าง ๆ ที่ได้จากการ train model
+* label_map.txt
+* train.record
+* test.record
 ```
 min_dimension: 416
 max_dimension: 416
@@ -122,17 +128,26 @@ eval_input_reader: {
 - warmup_steps: 1000 (แนะนำให้ใช้จำนวน 10% ของจำนวนรอบทั้งหมด)
 
 
-Train model
+**Train model**
 ```
 !python model_main_tf2.py --model_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn --pipeline_config_path=/content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config
 ```
 ![14](https://user-images.githubusercontent.com/113499057/196784178-89b1034b-883d-46fa-a1c5-7f07f17472da.jpg)
 
-Evaluation แสดงประสิทธิภาพของ model
+จากการคำสั่งการ train ข้างต้นจะสั่งให้บอกค่า loss ออกมาในทุก ๆ 100 steps โดยแต่ละ step จะใช้เวลาคำนวน 0.097 วินาที หลังจากนั้นเราจะใช้ค่าที่ได้จากการ train นี้มาประเมิน model ในขั้นตอนต่อไป
+
+**Evaluation แสดงประสิทธิภาพของ model**
 ```
 !python model_main_tf2.py --model_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn --pipeline_config_path=/content/drive/MyDrive/C_Dads7202/models/my_frcnn/pipeline.config --checkpoint_dir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn
 ```
 ![15](https://user-images.githubusercontent.com/113499057/196784195-db0281ff-b149-4d49-901d-2e29a28ba725.jpg)
+
+จากรูปจะได้ว่า model ของเรานั้น
+|    IoU    | Precision |
+|-----------|-----------|
+| 0.50:0.95 | 0.439     |
+| 0.50      | 0.861     |
+| 0.75      | 0.428     |
 
 ใช้ Tensorboard แสดงกราฟค่า loss (ค่าคลาดเคลื่อนในการพยากรณ์)
 ```
@@ -142,7 +157,7 @@ Evaluation แสดงประสิทธิภาพของ model
 ![g2_1](https://user-images.githubusercontent.com/113499057/196784215-cb2c1676-bf88-4253-aeca-a4ad28b6b00e.jpg)
 ![g2_2](https://user-images.githubusercontent.com/113499057/196784235-a5ec3377-1313-403c-9c5f-de398eec4656.jpg)
 
-จากกราฟเป็นค่าความผิดพลาดจากการเทรน เมื่อเวลาผ่านไปความผิดพลาดยิ่งน้อยลง หากได้ทําการเทรนมากยิ่งขึ้นโปรแกรมจะมีความแม่นยํามากขึ้น (ค่าเข้าใกล้ 0)
+จากกราฟเป็นค่าความผิดพลาด (loss) จากการ train เมื่อเวลาผ่านไปความผิดพลาดยิ่งน้อยลง หากได้ทําการ train มากยิ่งขึ้นโปรแกรมจะมีความแม่นยํามากขึ้น (ค่าเข้าใกล้ 0) ในการ train รอบต่อไปจึงได้มีการเพิ่มจำนวนรอบ (num_steps) ให้มากขึ้น
 
 ทำการบันทึก model ออกมาเก็บไว้
 ```
@@ -150,8 +165,12 @@ Evaluation แสดงประสิทธิภาพของ model
 ```
 ![17](https://user-images.githubusercontent.com/113499057/196785662-f4aa093d-f408-4a27-bf6a-2c452c2933e2.jpg)
 
-ผลลัพธ์ของการ Run Model
-batch size: 4, num_steps: 10000, total_steps: 10000, warmup_steps: 1000
+ผลลัพธ์ของการ Run Model จากการทดลองใช้ข้อมูลชุด test ในรูปภาพที่ 600.jpg
+- batch size: 4
+- num_steps: 10000
+- total_steps: 10000
+- warmup_steps: 1000
+จะเห็นว่า model ยังไม่ดีเท่าที่ควร เพราะไม่สามารถตรวจจับวัตถุได้ครบหมดทุกตำแหน่งที่มี จึงได้มีการปรับ ้ัhyperparameter ให้ model ในรอบต่อไป
 ![16](https://user-images.githubusercontent.com/113499057/196785683-8d1d8146-4c0c-43dd-9a25-76c2a882c69f.jpg)
 
 ### Tuned model
@@ -160,6 +179,7 @@ batch size: 4, num_steps: 10000, total_steps: 10000, warmup_steps: 1000
 - num_steps: 20000
 - total_steps: 20000 (num_steps = total_steps)
 - warmup_steps: 2000 (แนะนำให้ใช้จำนวน 10% ของจำนวนรอบทั้งหมด)
+
 #### ผลลัพธ์ของการ Run Model
 Train Model
 
