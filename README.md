@@ -99,6 +99,7 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 
 **สร้าง label_map.pbtxt** เพื่อเป็นการนิยาม classes ที่เราต้องการตรวจจับแล้วนำมาเก็บใน annotation folder เพื่อนำไปสร้างไฟล์ .record ในขั้นตอนต่อไป
 
+![p7](https://user-images.githubusercontent.com/113499057/196963189-413810d0-9b20-483c-a3e5-7e3679dbde7f.jpg)
 ![label](https://user-images.githubusercontent.com/113499057/196919960-06032020-f934-46ac-81bf-845b1b217190.jpg)
 
 **นำ train data** แปลงเป็น tfrecord file เพื่อนำชุดข้อมูลรูปภาพชุด train ของเราทั้ง .jpg และ .xml บีบอัดเพื่อที่สามรถนำเข้าไปใช้ใน model ได้ และจะได้ไฟล์ออกออกมาเป็น train.record
