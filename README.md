@@ -87,7 +87,7 @@ cp object_detection/packages/tf2/setup.py .
 ```
 cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 ```
-![10](https://user-images.githubusercontent.com/113499057/196779920-e5641a4c-f2e8-4fe1-8434-be95d9c1969c.jpg)
+![p6](https://user-images.githubusercontent.com/113499057/196954086-558149f1-0b3a-4159-832a-274d0272fa2b.jpg)
 
 โหลด pre-trained model จาก [Tensorflow 2 Detection Model Zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md) และแตกไฟล์
 ```
