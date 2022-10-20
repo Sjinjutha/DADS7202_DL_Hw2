@@ -331,14 +331,17 @@ for imageName in glob.glob('/content/yolov5/runs/detect/exp4/*.jpg'): #assuming 
 
 จะเห็นได้ว่า model ที่ใช้เทคนิค YOLOv5 แม่นยำกว่า ใช้เวลาและทรัพยากรน้อยกว่า อาจแนะนำให้ใช้เทคนิคนี้มากกว่า Faster R-CNN
 
-## Model 2: ResNet50 (one-stage model)
+## Model 2: RetiNet (one-stage model)
 เทคนิค RatinaNet ทำการแบ่งชุดข้อมูลออกเป็น train set 70% (840 รูป) validation set 20% (240 รูป) และ test set 10% (120 รูป)
 
+Mouth drive ไปที่ /content/drive  บน google drive
 ```
 from google.colab import drive
 drive.mount('/content/drive')
 ```
 ![n0](https://user-images.githubusercontent.com/113499057/196983454-ff2ce773-b934-4808-9f1f-aba7df701fde.jpg)
+
+Import library ที่ต้องใช้ และเช็คเวอร์ชั่นของ library และ GPU ที่นำมารันในการเทรน
 ```
 import sys
 print( f"Python {sys.version}\n" )
@@ -360,6 +363,8 @@ for i, gpu in enumerate(gpus):
   print( f".... GPU No. {i}: Name = {gpu.name} , Type = {gpu.device_type}" )
 ```
 ![n2](https://user-images.githubusercontent.com/113499057/196982582-0864f318-f163-4190-a583-3659fcd4ad41.jpg)
+
+Clone ตัว keras-retinanet model 
 ```
 import os
 print(os.getcwd())
@@ -402,6 +407,7 @@ import tensorflow_datasets as tfds
 ```
 
 ### Data processing
+การนำข้อมูลสกุล .xml มาสร้างเป็นไฟล์ .CSV เพื่อใช้ในการนำไป run model
 ```
 list_name = ['Train', 'Val', 'Test']
 
@@ -452,6 +458,8 @@ for i in list_name:
 # os.chdir("/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test")
 ```
 ![n6-1](https://user-images.githubusercontent.com/113499057/196982598-1865d645-6b63-44c8-9307-ae90dbc5696f.jpg)
+
+นิยาม filepath ของแต่ละ directory 
 ```
 annot_train_dir = "/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test/Train/annotation_Train_GoogleColab.csv"
 annot_val_dir =   "/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test/Val/annotation_Val_GoogleColab.csv"
@@ -459,7 +467,7 @@ annot_test_dir =  "/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_
 
 classes_dir = "/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/WaterBottle_Classes.csv"
 ```
-
+ตรวจสอบ format ให้อยู่ในรูปแบบที่ต้องการตามภาพด้านล่าง
 ```
 columns_ = ['fileName', 'xmin', 'ymin', 'xmax', 'ymax', 'class']
 
@@ -482,6 +490,8 @@ classes = ['Nestle','Aquafina', 'Crystal']
 pd.read_csv(classes_dir, names=['class', 'index'])
 ```
 ![n10](https://user-images.githubusercontent.com/113499057/196982791-dfce7ffa-c63c-4be6-a9d6-d233543de9f0.jpg)
+
+สุ่มข้อมูลรูปภาพจากไฟล์ CSV มา 1 แถว เพื่อดูรูปภาพ
 ```
 # Check annotation with 1 image
 
@@ -517,11 +527,15 @@ plt.show()
 #show_image_with_boxes(data)
 ```
 ![n11](https://user-images.githubusercontent.com/113499057/196982796-a8844574-0003-4eb4-8b28-5f0dcf59444e.jpg)
+
+เปลี่ยน directory มาอยู่ที่ /content
 ```
 os.chdir("/content/")
 os.getcwd()
 ```
+downlaod pre-trained model of 'https://github.com/fizyr/keras-retinanet/releases/download/0.5.1/resnet50_coco_best_v2.1.0.h5'
 
+ส่วนของการ train model เราจะนำ pre-trained model จากลิงค์ด้านบนมาใช้ในการปรับแก้ไข model โดยแบ่งการปรับออกเป็น 3 รูปแบบ คือการเปลี่ยน steps เป็น 100, 500, 1000 steps ซึ่งจะได้ผลลัพธ์เป็น mAP (Mean Average Precision)
 ```
 import tensorflow as tf
 
@@ -575,6 +589,9 @@ retina_train_(steps_=500)
 retina_train_(steps_=1000)
 ```
 ![n14t](https://user-images.githubusercontent.com/113499057/196982813-14e7c229-8696-4197-af05-98f383e87c27.jpg)
+
+**Evaluation**
+เตรียมข้อมูลเพื่อตรวจสอบประสิทธิภาพในการพยากรณ์ผลของ model โดยการสุ่มบางภาพจากชุด test มาเปรียบเทียบระหว่าง predicted image และ actual image
 ```
 from keras_retinanet import models
 from keras_retinanet.utils.image import read_image_bgr, preprocess_image, resize_image
@@ -658,6 +675,7 @@ for i,r in data_sample.iterrows():
 
 ![n16p-2](https://user-images.githubusercontent.com/113499057/196982940-33d776ee-c1a8-4809-a81e-039a0c74ca15.jpg)
 
+หลังจากนั้นนำ model ทั้ง 3 แบบ มาเปรียบเทียบประสิทธิภาพในแต่ละ model กับชุดข้อมูล test ทั้งชุด โดยใช้ค่า mAP ในการเปรียบเทียบ
 ```
 import tensorflow as tf
 
