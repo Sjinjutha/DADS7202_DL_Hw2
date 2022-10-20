@@ -289,16 +289,21 @@ for imageName in glob.glob('/content/yolov5/runs/detect/exp4/*.jpg'): #assuming 
 ### Comparing between initial model and tuned model of RetinaNet
 
 ## Comparing between Faster R-CNN and RetinaNet
-|         | Faster R-CNN | RetinaNet |
-|---------|--------------|-----------|
-| Chrome  | yes          | yes       |
-| Firefox | yes          | yes       |
-| Edge    | no           | yes       |
+|                                   | batch size |  num steps |  epochs |  GPU ที่ใช้ประมวลผล  | Precision  |
+|-----------------------------------|------------|------------|---------|-------------------|------------|
+| Faster R-CNN ResNet50 V1 640x640  | 4          | 10000      | 1       |                   |            |
+| Faster R-CNN ResNet50 V1 640x640  | 8          | 20000      | 1       |                   |            |
+| ResNet50                          | 1          | 500        | 30      |                   |            |
+| ResNet50                          | 1          | 1000       | 30      |                   |            |
 
 ## Reference
 [1] (2022) Data preprocessing from https://app.roboflow.com
 
-[2] (2022) Pre-trained model of Faster R-CNN and RetinaNet from https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md
+[2] (2022) Pre-trained model of Faster R-CNN from https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md
+
+[3] (2022) Backbone model of ResNet50 from https://github.com/fizyr/keras-retinanet
+
+[4] (2021) TFOD 2.0 Custom Object Detection Step By Step Tutorial from https://youtu.be/XoMiveY_1Z4
 
 ## End Credit
 งานชิ้นนี้เป็นส่วนหนึ่งของวิชา DADS7202 Deep Learning หลักสูตรวิทยาศาสตร์มหาบัณฑิต คณะสถิติประยุกต์ สถาบันบัณฑิตพัฒนบริหารศาสตร์
