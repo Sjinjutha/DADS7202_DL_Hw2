@@ -155,8 +155,7 @@ eval_input_reader: {
 %load_ext tensorboard
 %tensorboard --logdir=/content/drive/MyDrive/C_Dads7202/models/my_frcnn
 ```
-![g2_1](https://user-images.githubusercontent.com/113499057/196784215-cb2c1676-bf88-4253-aeca-a4ad28b6b00e.jpg)
-![g2_2](https://user-images.githubusercontent.com/113499057/196784235-a5ec3377-1313-403c-9c5f-de398eec4656.jpg)
+![t_22](https://user-images.githubusercontent.com/113499057/196929032-620c2e2f-ee82-4019-bc3a-cce5c8fe9e39.jpg)
 
 จากกราฟเป็นค่าความผิดพลาด (loss) จากการ train เมื่อเวลาผ่านไปความผิดพลาดยิ่งน้อยลง หากได้ทําการ train มากยิ่งขึ้นโปรแกรมจะมีความแม่นยํามากขึ้น (ค่าเข้าใกล้ 0) ในการ train รอบต่อไปจึงได้มีการเพิ่มจำนวนรอบ (num_steps) ให้มากขึ้น
 
@@ -191,9 +190,7 @@ Evaluation แสดงประสิทธิภาพของ model
 ![19](https://user-images.githubusercontent.com/113499057/196789205-f91017ad-e16f-4fda-90bd-a3bc4360d480.jpg)
 ใช้ Tensorboard แสดงกราฟค่า loss (ค่าคลาดเคลื่อนในการพยากรณ์)
 
-![g3_1](https://user-images.githubusercontent.com/113499057/196909385-fe256954-b675-4be6-b39b-c3bd7d769d7a.jpg)
-![g3_2](https://user-images.githubusercontent.com/113499057/196909401-b5285fbd-d1ab-42d9-914d-fda8a1df5e19.jpg)
-
+![t_3](https://user-images.githubusercontent.com/113499057/196929052-65c41b69-4b18-4d97-844f-0aa38af6e0c5.jpg)
 
 ![20](https://user-images.githubusercontent.com/113499057/196789208-85f177a2-64ef-4051-a67c-7ad05917c773.jpg)
 
