@@ -169,7 +169,10 @@ Evaluation แสดงประสิทธิภาพของ model
 
 ![19](https://user-images.githubusercontent.com/113499057/196789205-f91017ad-e16f-4fda-90bd-a3bc4360d480.jpg)
 ใช้ Tensorboard แสดงกราฟค่า loss (ค่าคลาดเคลื่อนในการพยากรณ์)
-### เพิ่มรูปกราฟTensor
+
+![g3_1](https://user-images.githubusercontent.com/113499057/196909385-fe256954-b675-4be6-b39b-c3bd7d769d7a.jpg)
+![g3_2](https://user-images.githubusercontent.com/113499057/196909401-b5285fbd-d1ab-42d9-914d-fda8a1df5e19.jpg)
+
 
 ![20](https://user-images.githubusercontent.com/113499057/196789208-85f177a2-64ef-4051-a67c-7ad05917c773.jpg)
 
