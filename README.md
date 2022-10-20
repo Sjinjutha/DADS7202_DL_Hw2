@@ -79,6 +79,7 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 
 **สร้าง label_map.pbtxt** แล้วนำมาเก็บใน annotation folder เพื่อนำไปสร้างไฟล์ .record ในขั้นตอนต่อไป
 
+
 **สร้าง train data** แปลงเป็น tfrecord file จะได้ไฟล์ออกออกมาเป็น train.record
 ```
 !python generate_tfrecord.py -x /content/drive/MyDrive/C_Dads7202/images/train -l /content/drive/MyDrive/C_Dads7202/annotations/label_map.pbtxt -o /content/drive/MyDrive/C_Dads7202/annotations/train.record
