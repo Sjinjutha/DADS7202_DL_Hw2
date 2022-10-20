@@ -112,6 +112,8 @@ cd /content/drive/MyDrive/C_Dads7202/pre-trained-models
 ```
 ![13](https://user-images.githubusercontent.com/113499057/196779995-d3043950-e75a-4970-a7f7-3caffcdc0b9a.jpg)
 
+![p8](https://user-images.githubusercontent.com/113499057/196964128-8b106643-e601-47c1-ad29-af80f7eb3f8e.jpg)
+
 **แก้ไขในไฟล์ pipline.config ใน model ของเราเอง (ดึงเฉพาะส่วน code ที่เราต้องแก้ file path)**
 
 แนะนำให้ปรับขนาดมิติเล็กและใหญ่ที่สุดให้เท่ากับขนาดรูปภาพของเราที่ใช้ (416 * 416)
