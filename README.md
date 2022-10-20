@@ -9,7 +9,7 @@
 ## Model 1: Faster R-CNN (two-stage model)
 เทคนิค Faster R-CNN นำข้อมูลผ่านเว็บไซต์ https://app.roboflow.com เพื่อตรวจสอบ อีกทั้งมีการปรับขนาดรูปภาพเป็น 416 * 416 แต่ไม่ได้มีการทำ Data Augmentation เนื่องจากชุดข้อมูลที่เราสร้างมีจำนวนมากและหลากหลายในเรื่องของมุมภาพ แสง การตัดขอบ การหมุน รวมอยู่ในชุดข้อมูล และทำการแบ่งชุดข้อมูลออกเป็น train set 90% (1080 รูป) และ test set 10% (120 รูป)
 
-### Initial model
+### Model 1
 เชื่อมต่อ google collab กับ google drive ของเรา เนื่องจากการ runtime ในแต่ละครั้งจะไม่ได้มีการบันทึกข้อมูลที่เราทำไว้ จึงทำการเชื่อมต่อกับ google drive ของเราเพื่อเก็บบันทึกข้อมูล
 ```
 from google.colab import drive
@@ -199,7 +199,7 @@ eval_input_reader: {
 จะเห็นว่า model ยังไม่ดีเท่าที่ควร เพราะไม่สามารถตรวจจับวัตถุได้ครบหมดทุกตำแหน่งที่มี จึงได้มีการปรับ hyperparameter ให้ model ในรอบต่อไป
 ![16](https://user-images.githubusercontent.com/113499057/196785683-8d1d8146-4c0c-43dd-9a25-76c2a882c69f.jpg)
 
-### Tuned model
+### Model 2
 ในการ run model ในครั้งนี้ใช้ (แก้ไขที่ไฟล์ pipeline.config)
 - batch size: 8
 - num_steps: 20000
@@ -235,20 +235,20 @@ eval_input_reader: {
 จะเห็นว่า model ยังไม่ดีเท่าที่ควร เพราะไม่สามารถตรวจจับวัตถุได้ครบหมดทุกตำแหน่งที่มี แต่ถึงแม้ว่าค่า loss จะดีขึ้นตามลำดับ ผลลัพธ์ยังไม่ดีเท่าที่ควร
 
 
-### Comparing between initial model and tuned model of Faster R-CNN
-#### Initial Model
-
+### Comparing between Model 1 and Model 2 of Faster R-CNN
+#### Model 1
 ![t_22](https://user-images.githubusercontent.com/113499057/196929032-620c2e2f-ee82-4019-bc3a-cce5c8fe9e39.jpg)
+#### Model 2
 ![t_3](https://user-images.githubusercontent.com/113499057/196929052-65c41b69-4b18-4d97-844f-0aa38af6e0c5.jpg)
 
 จากการปรับแก้ไขค่า parameter การเพิ่มค่าจำนวนรอบ (num_steps) จะเห็นได้ว่าค่า loss ดีขึ้น (ลดลงตามลำดับ)
 
+#### Model 1
 ![16](https://user-images.githubusercontent.com/113499057/196785683-8d1d8146-4c0c-43dd-9a25-76c2a882c69f.jpg)
+#### Model 2
 ![20](https://user-images.githubusercontent.com/113499057/196789208-85f177a2-64ef-4051-a67c-7ad05917c773.jpg)
 
 จากการเปรียบเทียบรูปสองรูปที่ได้จากการ train model พบว่า model ยังไม่ดีเท่าที่ควร อาจมีกาปรับแก้ไขค่า hyperparameter ต่อไปแต่ไม่เป็นข้อแนะนำ เนื่องจากถือเป็นการสิ้นเปลืองเวลาและทรัพยากรโดยไม่จำเป็น เพราะค่า loss ที่แสดงในกราฟ ไม่ได้ลดลงมากเท่าที่ควร
-
-#### Tuned Model
 
 ### Yolo V5
 clone github เพื่อจะได้ติดตั้ง Yolo-V5
@@ -331,13 +331,333 @@ for imageName in glob.glob('/content/yolov5/runs/detect/exp4/*.jpg'): #assuming 
 
 จะเห็นได้ว่า model ที่ใช้เทคนิค YOLOv5 แม่นยำกว่า ใช้เวลาและทรัพยากรน้อยกว่า อาจแนะนำให้ใช้เทคนิคนี้มากกว่า Faster R-CNN
 
-## Model 2: RetinaNet (one-stage model)
+## Model 2: ResNet50 (one-stage model)
 เทคนิค RatinaNet ทำการแบ่งชุดข้อมูลออกเป็น train set 70% (840 รูป) validation set 20% (240 รูป) และ test set 10% (120 รูป)
 
-### Initial model
+```
+from google.colab import drive
+drive.mount('/content/drive')
+```
 
-### Tuned model
+```
+import sys
+print( f"Python {sys.version}\n" )
 
+import numpy as np
+print( f"NumPy {np.__version__}\n" )
+
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+import tensorflow as tf
+print( f"TensorFlow {tf.__version__}" )
+print( f"tf.keras.backend.image_data_format() = {tf.keras.backend.image_data_format()}" )
+
+# Count the number of GPUs as detected by tensorflow
+gpus = tf.config.list_physical_devices('GPU')
+print( f"TensorFlow detected { len(gpus) } GPU(s):" )
+for i, gpu in enumerate(gpus):
+  print( f".... GPU No. {i}: Name = {gpu.name} , Type = {gpu.device_type}" )
+```
+
+```
+import os
+print(os.getcwd())
+
+!pip install utils
+
+!git clone https://github.com/fizyr/keras-retinanet.git
+%cd keras-retinanet/
+
+!pip install .
+!python setup.py build_ext --inplace
+```
+
+```
+!pip install wget
+!pip install pytz
+!pip install Cython pandas tf-slim lvis
+```
+
+```
+import numpy as np
+import shutil
+import pandas as pd
+import os, sys, random
+import re
+import zipfile
+import xml.etree.ElementTree as ET
+import pandas as pd
+from os import listdir
+from os.path import isfile, join
+import matplotlib.pyplot as plt
+import wget
+from PIL import Image # or import PIL.Image
+import requests
+import urllib
+from keras_retinanet.utils.visualization import draw_box, draw_caption , label_color
+from keras_retinanet.utils.image import preprocess_image, resize_image
+from tensorflow import keras
+import tensorflow_datasets as tfds
+```
+
+### Data processing
+```
+list_name = ['Train', 'Val', 'Test']
+
+for i in list_name:
+    imagePath= f"/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test/{i}/imagePath_{i}"
+    annotPath= f"/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test/{i}/annotPath_{i}"
+
+    names_data = 'data_' + i
+    print("names_data")
+
+    names_data = pd.DataFrame(columns=['fileName','xmin','ymin','xmax','ymax','class'])
+
+    os.chdir(f"/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test/{i}/")
+
+    #read All files
+    allfiles = [f for f in listdir(annotPath) if isfile(join(annotPath, f))]
+    print(f"the total quantity of annotPath in {i}:", len(allfiles))
+
+    #Read all pdf files in images and then in text and store that in temp folder
+    for file in allfiles:
+        #print(file)
+        if (file.split(".")[1]=='xml'):
+            fileName= imagePath+'/'+file.replace(".xml",'.jpg')
+            tree = ET.parse(annotPath+'/'+file)
+            root = tree.getroot()
+            if root.find('object') :
+                for obj in root.iter('object'):
+                    cls_name = obj.find('name').text
+                    xml_box = obj.find('bndbox')
+                    xmin = xml_box.find('xmin').text
+                    ymin = xml_box.find('ymin').text
+                    xmax = xml_box.find('xmax').text
+                    ymax = xml_box.find('ymax').text
+
+            # if we want 0 in all elements with unbounding box image
+            #else:
+            #    cls_name = ''
+            #    xmin = ymin = xmax = ymax = 0
+
+            # Append rows in Empty Dataframe by adding dictionaries
+            names_data = names_data.append({'fileName': fileName, 'xmin': xmin, 'ymin':ymin,'xmax':xmax,'ymax':ymax,'class':cls_name}, ignore_index=True)
+            
+            # names_data.to_csv(f"all_annotation_{i}.csv", index=False)
+            
+    print(names_data.shape)
+    print(names_data)
+
+# os.chdir("/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test")
+```
+
+```
+annot_train_dir = "/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test/Train/annotation_Train_GoogleColab.csv"
+annot_val_dir =   "/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test/Val/annotation_Val_GoogleColab.csv"
+annot_test_dir =  "/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test/Test/annotation_Test_GoogleColab.csv"
+
+classes_dir = "/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/WaterBottle_Classes.csv"
+```
+
+```
+columns_ = ['fileName', 'xmin', 'ymin', 'xmax', 'ymax', 'class']
+
+train_annot = pd.read_csv(annot_train_dir, names=columns_)
+train_annot.head()
+```
+
+```
+val_annot = pd.read_csv(annot_val_dir, names=columns_)
+val_annot.head()
+```
+
+```
+test_annot = pd.read_csv(annot_test_dir, names=columns_)
+test_annot.head()
+```
+
+```
+classes = ['Nestle','Aquafina', 'Crystal']
+pd.read_csv(classes_dir, names=['class', 'index'])
+```
+
+```
+# Check annotation with 1 image
+
+data = train_annot
+
+# pick a random image
+filepath = data.sample()['fileName'].values[0]
+##print(filepath)
+# get all rows for this image
+df2 = data[data['fileName'] == filepath]
+print(df2)
+im = np.array(Image.open(filepath))
+print(im)
+
+# if there's a PNG it will have alpha channel
+im = im[:,:,:3]
+
+for idx, row in df2.iterrows():
+    print(idx, row)
+    box = [
+      row['xmin'],
+      row['ymin'],
+      row['xmax'],
+      row['ymax'],
+    ]
+    print(box)
+    draw_box(im, box, color=(255, 0, 0), thickness=4) #https://github.com/fizyr/keras-retinanet/blob/main/keras_retinanet/utils/visualization.py
+
+plt.axis('off')
+plt.imshow(im)
+plt.show()                  
+                  
+#show_image_with_boxes(data)
+```
+```
+os.chdir("/content/")
+os.getcwd()
+```
+
+```
+import tensorflow as tf
+
+if os.path.exists("/content/snapshot/") == False :
+        os.mkdir("snapshot")
+
+PRETRAINED_MODEL = "/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Train_Val_Test/snapshots/resnet50_coco_best_v2.1.0.h5"
+path_snapshot = "/content/snapshot/"
+
+def retina_train_(steps_=100): 
+    # default 1e-5  --snapshot "/content/snapshot/resnet50_csv_01.h5" \
+    !python "/content/keras-retinanet/keras_retinanet/bin/train.py" \
+            --backbone "resnet50" \
+            --batch-size 1 \
+            --epochs 30   \
+            --steps {steps_}   \
+            --gpu 0  \
+            --weights {PRETRAINED_MODEL} \
+            --tensorboard-dir './logs' \
+            --snapshot-path {path_snapshot} \
+            csv {annot_train_dir}  {classes_dir} \
+            --val-annotations {annot_val_dir}
+```
+### Train Model1 1
+ในการ run ครั้งนี้ใช้
+- batch size = 1
+- num steps = 100
+- epochs = 30
+```
+retina_train_(100)
+```
+### Train Model1 2
+ในการ run ครั้งนี้ใช้
+- batch size = 1
+- num steps = 500
+- epochs = 30
+```
+retina_train_(steps_=500)
+```
+### Train Model1 3
+ในการ run ครั้งนี้ใช้
+- batch size = 1
+- num steps = 1000
+- epochs = 30
+```
+retina_train_(steps_=1000)
+```
+
+```
+from keras_retinanet import models
+from keras_retinanet.utils.image import read_image_bgr, preprocess_image, resize_image
+from keras_retinanet.utils.visualization import draw_box, draw_caption
+from keras_retinanet.utils.colors import label_color
+
+model_path = os.path.join(path_snapshot, sorted(os.listdir(path_snapshot), reverse=True)[0])
+print(model_path)
+
+# load retinanet model
+model = models.load_model(model_path, backbone_name='resnet50')  ## Use backbone as resnet50
+model = models.convert_model(model)
+
+# load label to names mapping for visualization purposes
+labels_to_names = pd.read_csv(classes_dir,header=None).T.loc[0].to_dict()
+labels_to_names
+```
+
+```
+THRES_SCOREs = 0.35  # Set Score Threshold Value
+
+import cv2
+import time
+
+def df_plot_orinal(drawOG, img_path, df):
+    df = df[df['fileName']==img_path]
+    for i,r in df.iterrows():
+        cv2.rectangle(drawOG, (r['xmin'], r['ymin']), (r['xmax'], r['ymax']), (255,0,0),2)
+    
+
+def img_inference(img_path, df_data, THRES_SCORE=THRES_SCOREs):
+    image = read_image_bgr(img_path)
+
+    # copy to draw on
+    draw = image.copy()
+    draw = cv2.cvtColor(draw, cv2.COLOR_BGR2RGB)
+    drawOG = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    # preprocess image for network
+    image = preprocess_image(image)
+    image, scale = resize_image(image)
+
+    # process image
+    start = time.time()
+    boxes, scores, labels = model.predict_on_batch(np.expand_dims(image, axis=0))
+    df_plot_orinal(drawOG, img_path, df_data)
+    # correct for image scale
+    boxes /= scale
+    # visualize detections
+    for box, score, label in zip(boxes[0], scores[0], labels[0]):
+        # scores are sorted so we can break
+        #print(score)
+        if score < THRES_SCORE:
+            continue
+        color = label_color(label)
+        b = box.astype(int)
+        draw_box(draw, b, color=color)
+        caption = "{} {:.3f}%".format(labels_to_names[label], score*100)
+        print(box, score, label)
+        
+    fig = plt.figure(figsize=(20, 20))
+    ax1=fig.add_subplot(1, 2, 1)
+    plt.imshow(draw)
+    ax2=fig.add_subplot(1, 2, 2)
+    plt.imshow(drawOG)
+
+    ax1.title.set_text('Predicted')
+    ax2.title.set_text('Actual')
+    plt.show()
+```
+
+```
+THRES_SCORE_Adjust = 0.4
+
+#print(test_annot.head())
+
+data_sample = test_annot.sample(n=5)  #Predict on Random 5 Image
+for i,r in data_sample.iterrows():
+    img_inference(r['fileName'], test_annot, THRES_SCORE_Adjust)
+```
+```
+import tensorflow as tf
+
+for i in range(1,4):
+    model_path_r = f"/content/drive/MyDrive/NIDA/DADS7202/DADS7202_HW2_Data/Snapshot/round{i}_best_resnet50.h5"
+
+    !python "/content/keras-retinanet/keras_retinanet/bin/evaluate.py" \
+        csv {annot_test_dir} {classes_dir} \
+        {model_path_r} --convert-model
+```
 ### Comparing between initial model and tuned model of RetinaNet
 
 ## Comparing between Faster R-CNN and RetinaNet
@@ -345,6 +665,7 @@ for imageName in glob.glob('/content/yolov5/runs/detect/exp4/*.jpg'): #assuming 
 |-----------------------------------|------------|------------|---------|-------------------|------------|
 | Faster R-CNN ResNet50 V1 640x640  | 4          | 10000      | 1       |                   |            |
 | Faster R-CNN ResNet50 V1 640x640  | 8          | 20000      | 1       |                   |            |
+| ResNet50                          | 1          | 100        | 30      |                   |            |
 | ResNet50                          | 1          | 500        | 30      |                   |            |
 | ResNet50                          | 1          | 1000       | 30      |                   |            |
 
